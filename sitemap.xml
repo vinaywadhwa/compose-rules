@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-         <loc>https://twitter.github.io/compose-rules/</loc>
+         <loc>https://mrmans0h.github.io/compose-rules/</loc>
          <lastmod>2023-01-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://twitter.github.io/compose-rules/detekt/</loc>
+         <loc>https://mrmans0h.github.io/compose-rules/detekt/</loc>
          <lastmod>2023-01-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://twitter.github.io/compose-rules/ktlint/</loc>
+         <loc>https://mrmans0h.github.io/compose-rules/ktlint/</loc>
          <lastmod>2023-01-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://twitter.github.io/compose-rules/rules/</loc>
+         <loc>https://mrmans0h.github.io/compose-rules/rules/</loc>
          <lastmod>2023-01-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
