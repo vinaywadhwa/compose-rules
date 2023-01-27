@@ -2,16 +2,16 @@ When using the [Detekt Gradle Plugin](https://detekt.dev/docs/gettingstarted/gra
 
 ```groovy
 dependencies {
-    detektPlugins "com.twitter.compose.rules:detekt:<VERSION>"
+    detektPlugins "io.nlopez.compose.rules:detekt:<VERSION>"
 }
 ```
 
 ### Using with detekt CLI
 
-The [releases](https://github.com/twitter/compose-rules/releases) page contains an [uber jar](https://stackoverflow.com/questions/11947037/what-is-an-uber-jar) for each version release that can be used to run with the [CLI version of detekt](https://detekt.dev/docs/gettingstarted/cli).
+The [releases](https://github.com/mrmans0n/compose-rules/releases) page contains an [uber jar](https://stackoverflow.com/questions/11947037/what-is-an-uber-jar) for each version release that can be used to run with the [CLI version of detekt](https://detekt.dev/docs/gettingstarted/cli).
 
 ```shell
-detekt -p detekt-twitter-compose-<VERSION>-all.jar -c your/config/detekt.yml
+detekt -p detekt-compose-<VERSION>-all.jar -c your/config/detekt.yml
 ```
 
 ### Enabling rules
@@ -19,7 +19,7 @@ detekt -p detekt-twitter-compose-<VERSION>-all.jar -c your/config/detekt.yml
 For the rules to be picked up, you will need to enable them in your `detekt.yml` configuration file.
 
 ```yaml
-TwitterCompose:
+Compose:
   CompositionLocalAllowlist:
     active: true
     # You can optionally define a list of CompositionLocals that are allowed here
