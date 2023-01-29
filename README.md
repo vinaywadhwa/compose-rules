@@ -15,7 +15,7 @@ Check out the project website for more information: https://mrmans0n.github.io/c
 
 ## Static checks for Compose bundled in this repo
 
-You can find the comprehensive list of rules in [the rules documentaton](https://mrmans0n.github.io/compose-rules/rules). It contains both the what and why for each rule, we encourage you to read it prior to adopting our rules.
+You can find the comprehensive list of rules in [the rules documentation](https://mrmans0n.github.io/compose-rules/rules). It contains both the what and why for each rule, we encourage you to read it prior to adopting our rules.
 
 There are 2 ways you can add these static checks to your build - using Ktlint or using Detekt.
 
