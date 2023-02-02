@@ -3,7 +3,7 @@
 ![build](https://github.com/mrmans0n/compose-rules/actions/workflows/build.yaml/badge.svg) ![Latest version](https://img.shields.io/maven-central/v/io.nlopez.compose.rules/common)
 
 > **Note**
-> This repository is a fork of the [Twitter Jetpack Compose Rules](https://github.com/twitter/compose-rules) by its original author. As none of the admins/maintainers continue working at the company, its development will continue here from now on.
+> This repository is a fork of the [Twitter Jetpack Compose Rules](https://github.com/twitter/compose-rules) by its original maintainer. As none of the admins/maintainers continue working at the company, its development will continue here from now on.
 
 It can be challenging for big teams to start adopting Compose, particularly because not everyone will start at same time or with the same patterns. We tried to ease the pain by creating a set of Compose static checks.
 
