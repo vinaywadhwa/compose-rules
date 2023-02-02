@@ -27,6 +27,10 @@ You can refer to the [Using with Ktlint](https://mrmans0n.github.io/compose-rule
 
 You can refer to the [Using with Detekt](https://mrmans0n.github.io/compose-rules/detekt) documentation.
 
+## Using with Lint
+
+There is a project using these rules and running them via Android's Lint, that is maintained by Slack. [Check it out here!](https://github.com/slackhq/compose-lints/)
+
 ## Contributing
 
 We love sharing and learning from others; contributing new rules or fixes is welcome. See the [Contributing](CONTRIBUTING.md) instructions for more information.
