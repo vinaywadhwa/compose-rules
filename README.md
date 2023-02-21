@@ -38,6 +38,7 @@ We love sharing and learning from others; contributing new rules or fixes is wel
 ## License
 
 ```
+    Copyright 2022 Twitter, Inc.
     Copyright 2023 Nacho Lopez.
 
     Licensed under the Apache License, Version 2.0 (the "License");
