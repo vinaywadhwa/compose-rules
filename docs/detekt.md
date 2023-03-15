@@ -33,7 +33,7 @@ Compose:
   ModifierMissing:
     active: true
     # You can optionally control the visibility of which composables to check for here
-    # Possible values are: only_public, public_and_internal_ all (default is only_public)
+    # Possible values are: `only_public`, `public_and_internal` and `all` (default is `only_public`)
     # checkModifiersForVisibility: only_public
   ModifierReused:
     active: true
@@ -41,8 +41,8 @@ Compose:
     active: true
   MultipleEmitters:
     active: true
-      # You can optionally add your own composables here
-      # contentEmitters: MyComposable,MyOtherComposable
+    # You can optionally add your own composables here
+    # contentEmitters: MyComposable,MyOtherComposable
   MutableParams:
     active: true
   ComposableNaming:
