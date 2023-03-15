@@ -21,7 +21,7 @@
         <link rel="next" href="../detekt/">
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.2">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.3">
     
     
       
@@ -29,7 +29,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.7bf56d0a.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.c4a75a56.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.a0c5b2b5.min.css">
@@ -326,6 +326,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#configure-the-visibility-of-the-composables-where-to-check-for-missing-modifiers" class="md-nav__link">
+    Configure the visibility of the composables where to check for missing modifiers
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -464,6 +471,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#configure-the-visibility-of-the-composables-where-to-check-for-missing-modifiers" class="md-nav__link">
+    Configure the visibility of the composables where to check for missing modifiers
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -544,6 +558,15 @@ compose_preview_public_only_if_params = false
 <div class="highlight"><pre><span></span><code>[*.{kt,kts}]
 compose_allowed_composable_function_names = .*Presenter,.*SomethingElse
 </code></pre></div>
+<h3 id="configure-the-visibility-of-the-composables-where-to-check-for-missing-modifiers">Configure the visibility of the composables where to check for missing modifiers<a class="headerlink" href="#configure-the-visibility-of-the-composables-where-to-check-for-missing-modifiers" title="Permanent link">&para;</a></h3>
+<p>The <code>compose:modifier-missing-check</code> rule will, by default, only look for missing modifiers for public composables. If you want to lower the visibility threshold to check also internal compoosables, or all composables, you can configure it in your <code>.editorconfig</code> file:</p>
+<div class="highlight"><pre><span></span><code>[*.{kt,kts}]
+compose_check_modifiers_for_visibility = only_public
+</code></pre></div>
+<p>Possible values are:
+- <code>only_public</code>: (default) Will check for missing modifiers only for public composables.
+- <code>public_and_internal</code>: Will check for missing modifiers in both public and internal composables.
+- <code>all</code>: Will check for missing modifiers in all composables.</p>
 <h2 id="disabling-a-specific-rule">Disabling a specific rule<a class="headerlink" href="#disabling-a-specific-rule" title="Permanent link">&para;</a></h2>
 <p>To disable a rule you have to follow the <a href="https://github.com/pinterest/ktlint#how-do-i-suppress-an-errors-for-a-lineblockfile">instructions from the ktlint documentation</a>, and use the id of the rule you want to disable with the <code>compose</code> tag.</p>
 <p>For example, to disable <code>compose-naming-check</code>, the tag you'll need to disable is <code>compose:compose-naming-check</code>.</p>
@@ -591,7 +614,7 @@ compose_allowed_composable_function_names = .*Presenter,.*SomethingElse
     <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.fc8c2696.min.js"></script>
+      <script src="../assets/javascripts/bundle.efa0ade1.min.js"></script>
       
     
   </body>
