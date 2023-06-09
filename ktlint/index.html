@@ -322,13 +322,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#make-it-so-that-all-preview-composables-must-be-not-public-no-exceptions" class="md-nav__link">
-    Make it so that all @Preview composables must be not public, no exceptions
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#allowing-matching-function-names" class="md-nav__link">
     Allowing matching function names
   </a>
@@ -474,13 +467,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#make-it-so-that-all-preview-composables-must-be-not-public-no-exceptions" class="md-nav__link">
-    Make it so that all @Preview composables must be not public, no exceptions
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#allowing-matching-function-names" class="md-nav__link">
     Allowing matching function names
   </a>
@@ -568,11 +554,6 @@ compose_view_model_factories = myViewModel,potatoViewModel
 <p>For <code>compositionlocal-allowlist</code> rule you can define a list of <code>CompositionLocal</code>s that are allowed in your codebase.</p>
 <div class="highlight"><pre><span></span><code>[*.{kt,kts}]
 compose_allowed_composition_locals = LocalSomething,LocalSomethingElse
-</code></pre></div>
-<h3 id="make-it-so-that-all-preview-composables-must-be-not-public-no-exceptions">Make it so that all @Preview composables must be not public, no exceptions<a class="headerlink" href="#make-it-so-that-all-preview-composables-must-be-not-public-no-exceptions" title="Permanent link">&para;</a></h3>
-<p>In <code>preview-public-check</code>, only previews with a <code>@PreviewParameter</code> are required to be non-public by default. However, if you want to make it so ALL <code>@Preview</code> composables are non-public, you can add this to your <code>.editorconfig</code> file:</p>
-<div class="highlight"><pre><span></span><code>[*.{kt,kts}]
-compose_preview_public_only_if_params = false
 </code></pre></div>
 <h3 id="allowing-matching-function-names">Allowing matching function names<a class="headerlink" href="#allowing-matching-function-names" title="Permanent link">&para;</a></h3>
 <p>The <code>naming-check</code> rule requires all composables that return a value to be lowercased. If you want to allow certain patterns though, you can configure a comma-separated list of matching regexes in your <code>.editorconfig</code> file:</p>
