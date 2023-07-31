@@ -452,6 +452,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#naming-modifiers-properly" class="md-nav__link">
+    Naming modifiers properly
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#avoid-modifier-extension-factory-functions" class="md-nav__link">
     Avoid Modifier extension factory functions
   </a>
@@ -650,6 +657,13 @@
           <li class="md-nav__item">
   <a href="#modifiers-should-have-default-parameters" class="md-nav__link">
     Modifiers should have default parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#naming-modifiers-properly" class="md-nav__link">
+    Naming modifiers properly
   </a>
   
 </li>
@@ -859,6 +873,11 @@ This is not recommended. Instead, the provided modifier should only be used on t
 <p>Composables that accept a Modifier as a parameter to be applied to the whole component represented by the composable function should name the parameter modifier and assign the parameter a default value of <code>Modifier</code>. It should appear as the first optional parameter in the parameter list; after all required parameters (except for trailing lambda parameters) but before any other parameters with default values. Any default modifiers desired by a composable function should come after the modifier parameter's value in the composable function's implementation, keeping Modifier as the default parameter value.</p>
 <p>More info: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier">Modifier documentation</a></p>
 <p>Related rule: <a href="https://github.com/mrmans0n/compose-rules/blob/main/rules/common/src/main/kotlin/io/nlopez/compose/rules/ComposeModifierWithoutDefault.kt">compose:modifier-without-default-check</a></p>
+<h3 id="naming-modifiers-properly">Naming modifiers properly<a class="headerlink" href="#naming-modifiers-properly" title="Permanent link">&para;</a></h3>
+<p>Composables that accept a Modifier as a parameter to be applied to the whole component represented by the composable function should name the parameter <code>modifier</code>.</p>
+<p>In cases where Composables accept modifiers to be applied to a specific subcomponent should name the parameter <code>xModifier</code> (e.g. <code>fooModifier</code> for a <code>Foo</code> subcomponent) and follow the same guidelines above for default values and behavior.</p>
+<p>More info: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier">Modifier documentation</a></p>
+<p>Related rule: <a href="https://github.com/mrmans0n/compose-rules/blob/main/rules/common/src/main/kotlin/io/nlopez/compose/rules/ComposeModifierNaming.kt">compose:modifier-naming</a></p>
 <h3 id="avoid-modifier-extension-factory-functions">Avoid Modifier extension factory functions<a class="headerlink" href="#avoid-modifier-extension-factory-functions" title="Permanent link">&para;</a></h3>
 <p>Using <code>@Composable</code> builder functions for modifiers is not recommended, as they cause unnecessary recompositions. To avoid this, you should use <code>Modifier.composed</code> instead, as it limits recomposition to just the modifier instance, rather than the whole function tree.</p>
 <p>Composed modifiers may be created outside of composition, shared across elements, and declared as top-level constants, making them more flexible than modifiers that can only be created via a <code>@Composable</code> function call, and easier to avoid accidentally sharing state across elements.</p>
