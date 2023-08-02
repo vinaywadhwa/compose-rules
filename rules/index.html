@@ -19,7 +19,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.1, mkdocs-material-9.1.21">
+      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.1.21">
     
     
       
@@ -470,6 +470,26 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#componentdefaults" class="md-nav__link">
+    ComponentDefaults
+  </a>
+  
+    <nav class="md-nav" aria-label="ComponentDefaults">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#componentdefaults-object-should-match-the-composable-visibility" class="md-nav__link">
+    ComponentDefaults object should match the composable visibility
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -671,6 +691,26 @@
           <li class="md-nav__item">
   <a href="#avoid-modifier-extension-factory-functions" class="md-nav__link">
     Avoid Modifier extension factory functions
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#componentdefaults" class="md-nav__link">
+    ComponentDefaults
+  </a>
+  
+    <nav class="md-nav" aria-label="ComponentDefaults">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#componentdefaults-object-should-match-the-composable-visibility" class="md-nav__link">
+    ComponentDefaults object should match the composable visibility
   </a>
   
 </li>
@@ -883,6 +923,11 @@ This is not recommended. Instead, the provided modifier should only be used on t
 <p>Composed modifiers may be created outside of composition, shared across elements, and declared as top-level constants, making them more flexible than modifiers that can only be created via a <code>@Composable</code> function call, and easier to avoid accidentally sharing state across elements.</p>
 <p>More info: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/package-summary#extension-functions">Modifier extensions</a>, <a href="https://jorgecastillo.dev/composed-modifiers-in-jetpack-compose">Composed modifiers in Jetpack Compose by Jorge Castillo</a> and <a href="https://github.com/androidx/androidx/blob/androidx-main/compose/docs/compose-api-guidelines.md#composed-modifiers">Composed modifiers in API guidelines</a></p>
 <p>Related rule: <a href="https://github.com/mrmans0n/compose-rules/blob/main/rules/common/src/main/kotlin/io/nlopez/compose/rules/ComposeModifierComposable.kt">compose:modifier-composable-check</a></p>
+<h2 id="componentdefaults">ComponentDefaults<a class="headerlink" href="#componentdefaults" title="Permanent link">&para;</a></h2>
+<h3 id="componentdefaults-object-should-match-the-composable-visibility">ComponentDefaults object should match the composable visibility<a class="headerlink" href="#componentdefaults-object-should-match-the-composable-visibility" title="Permanent link">&para;</a></h3>
+<p>If your composable has an associated <code>Defaults</code> object to contain its default values, this object should have the same visibility as the composable itself. This will allow consumers to be able to interact or build upon the original intended defaults, as opposed to having to maintain their own set of defaults by copy-pasting.</p>
+<p>More info: <a href="https://github.com/androidx/androidx/blob/androidx-main/compose/docs/compose-component-api-guidelines.md#default-expressions">Compose Component API Guidelines</a></p>
+<p>Related rule: <a href="https://github.com/mrmans0n/compose-rules/blob/main/rules/common/src/main/kotlin/io/nlopez/compose/rules/ComposeDefaultsVisibility.kt">compose:defaults-visibility</a></p>
 
 
 
