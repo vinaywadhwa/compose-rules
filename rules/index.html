@@ -438,6 +438,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#modifiers-should-be-used-at-the-top-most-layout-of-the-component" class="md-nav__link">
+    Modifiers should be used at the top-most layout of the component
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#dont-re-use-modifiers" class="md-nav__link">
     Don't re-use modifiers
   </a>
@@ -668,6 +675,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#modifiers-should-be-used-at-the-top-most-layout-of-the-component" class="md-nav__link">
+    Modifiers should be used at the top-most layout of the component
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#dont-re-use-modifiers" class="md-nav__link">
     Don't re-use modifiers
   </a>
@@ -886,6 +900,11 @@ Be sure to set Detekt's <a href="https://detekt.dev/docs/introduction/compose/#u
 <p>They are especially important for your public components, as they allow callers to customize the component to their wishes.</p>
 <p>More info: <a href="https://chris.banes.dev/posts/always-provide-a-modifier/">Always provide a Modifier parameter</a></p>
 <p>Related rule: <a href="https://github.com/mrmans0n/compose-rules/blob/main/rules/common/src/main/kotlin/io/nlopez/compose/rules/ComposeModifierMissing.kt">compose:modifier-missing-check</a></p>
+<h3 id="modifiers-should-be-used-at-the-top-most-layout-of-the-component">Modifiers should be used at the top-most layout of the component<a class="headerlink" href="#modifiers-should-be-used-at-the-top-most-layout-of-the-component" title="Permanent link">&para;</a></h3>
+<p>Modifiers should be applied once as a first modifier in the chain to the root-most layout in the component implementation.
+Since modifiers aim to modify the external behaviors and appearance of the component, they must be applied to the top-most layout and be the first modifiers in the hierarchy. It is allowed to chain other modifiers to the modifier passed as a param if needed.</p>
+<p>More info: <a href="https://github.com/androidx/androidx/blob/androidx-main/compose/docs/compose-component-api-guidelines.md#modifier-parameter">Compose Component API Guidelines</a></p>
+<p>Related rule: <a href="https://github.com/mrmans0n/compose-rules/blob/main/rules/common/src/main/kotlin/io/nlopez/compose/rules/ComposeModifierNotUsedAtRoot.kt">compose:modifier-not-used-at-root</a></p>
 <h3 id="dont-re-use-modifiers">Don't re-use modifiers<a class="headerlink" href="#dont-re-use-modifiers" title="Permanent link">&para;</a></h3>
 <p>Modifiers which are passed in are designed so that they should be used by a single layout node in the composable function. If the provided modifier is used by multiple composables at different levels, unwanted behaviour can happen.</p>
 <p>In the following example we've exposed a public modifier parameter, and then passed it to the root Column, but we've also passed it to each of the descendant calls, with some extra modifiers on top:</p>
