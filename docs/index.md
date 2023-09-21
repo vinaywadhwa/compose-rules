@@ -1,4 +1,4 @@
-The Compose Rules is a set of custom ktlint rules to ensure that your composables don't fall into common pitfalls, that might be easy to miss in code reviews.
+The Compose Rules is a set of custom Ktlint / Detekt rules to ensure that your composables don't fall into common pitfalls, that might be easy to miss in code reviews.
 
 ## Why
 It can be challenging for big teams to start adopting Compose, particularly because not everyone will start at same time or with the same patterns. We tried to ease the pain by creating a set of Compose static checks.
