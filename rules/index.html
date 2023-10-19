@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.5">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
     
     
       
@@ -28,7 +28,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.6a10b989.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.35e1ed30.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.356b1318.min.css">
@@ -470,6 +470,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#modifier-order-matters" class="md-nav__link">
+    Modifier order matters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#modifiers-should-be-used-at-the-top-most-layout-of-the-component" class="md-nav__link">
     Modifiers should be used at the top-most layout of the component
   </a>
@@ -707,6 +714,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#modifier-order-matters" class="md-nav__link">
+    Modifier order matters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#modifiers-should-be-used-at-the-top-most-layout-of-the-component" class="md-nav__link">
     Modifiers should be used at the top-most layout of the component
   </a>
@@ -932,6 +946,42 @@ Be sure to set Detekt's <a href="https://detekt.dev/docs/introduction/compose/#u
 <p>They are especially important for your public components, as they allow callers to customize the component to their wishes.</p>
 <p>More info: <a href="https://chris.banes.dev/posts/always-provide-a-modifier/">Always provide a Modifier parameter</a></p>
 <p>Related rule: <a href="https://github.com/mrmans0n/compose-rules/blob/main/rules/common/src/main/kotlin/io/nlopez/compose/rules/ComposeModifierMissing.kt">compose:modifier-missing-check</a></p>
+<h3 id="modifier-order-matters">Modifier order matters<a class="headerlink" href="#modifier-order-matters" title="Permanent link">&para;</a></h3>
+<p>The order of modifier functions is very important. Each function makes changes to the Modifierreturned by the previous function, the sequence affects the final result. Let's see an example of this:</p>
+<p><div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">MyCard</span><span class="p">(</span><span class="n">modifier</span><span class="p">:</span><span class="w"> </span><span class="n">Modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">Column</span><span class="p">(</span>
+<span class="w">        </span><span class="n">modifier</span>
+<span class="w">            </span><span class="c1">// Tapping on it does a ripple, the ripple is bound incorrectly to the composable</span>
+<span class="w">            </span><span class="p">.</span><span class="na">clickable</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* TODO */</span><span class="w"> </span><span class="p">}</span>
+<span class="w">            </span><span class="c1">// Create rounded corners</span>
+<span class="w">            </span><span class="p">.</span><span class="na">clip</span><span class="p">(</span><span class="n">shape</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">RoundedCornerShape</span><span class="p">(</span><span class="m">8.</span><span class="n">dp</span><span class="p">))</span>
+<span class="w">            </span><span class="c1">// Background with rounded corners</span>
+<span class="w">            </span><span class="p">.</span><span class="na">background</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">backgroundColor</span><span class="p">,</span><span class="w"> </span><span class="n">shape</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">RoundedCornerShape</span><span class="p">(</span><span class="m">8.</span><span class="n">dp</span><span class="p">))</span>
+<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// rest of the implementation</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+The entire area, including the clipped area and the clipped background, responds to clicks. This means that the ripple will fill it all, even the areas that we wanted to trim from the shape.</p>
+<p>We can address this by simply reordering the modifiers.</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">MyCard</span><span class="p">(</span><span class="n">modifier</span><span class="p">:</span><span class="w"> </span><span class="n">Modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">Column</span><span class="p">(</span>
+<span class="w">        </span><span class="n">modifier</span>
+<span class="w">            </span><span class="c1">// Create rounded corners</span>
+<span class="w">            </span><span class="p">.</span><span class="na">clip</span><span class="p">(</span><span class="n">shape</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">RoundedCornerShape</span><span class="p">(</span><span class="m">8.</span><span class="n">dp</span><span class="p">))</span>
+<span class="w">            </span><span class="c1">// Background with rounded corners</span>
+<span class="w">            </span><span class="p">.</span><span class="na">background</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">backgroundColor</span><span class="p">,</span><span class="w"> </span><span class="n">shape</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">RoundedCornerShape</span><span class="p">(</span><span class="m">8.</span><span class="n">dp</span><span class="p">))</span>
+<span class="w">            </span><span class="c1">// Tapping on it does a ripple, the ripple is bound incorrectly to the composable</span>
+<span class="w">            </span><span class="p">.</span><span class="na">clickable</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* TODO */</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// rest of the implementation</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>More info: <a href="https://developer.android.com/jetpack/compose/modifiers#order-modifier-matters">Modifier documentation</a></p>
+<p>Related rule: <a href="https://github.com/mrmans0n/compose-rules/blob/main/rules/common/src/main/kotlin/io/nlopez/compose/rules/ComposeModifierClickableOrder.kt">compose:modifier-clickable-order</a></p>
 <h3 id="modifiers-should-be-used-at-the-top-most-layout-of-the-component">Modifiers should be used at the top-most layout of the component<a class="headerlink" href="#modifiers-should-be-used-at-the-top-most-layout-of-the-component" title="Permanent link">&para;</a></h3>
 <p>Modifiers should be applied once as a first modifier in the chain to the root-most layout in the component implementation.
 Since modifiers aim to modify the external behaviors and appearance of the component, they must be applied to the top-most layout and be the first modifiers in the hierarchy. It is allowed to chain other modifiers to the modifier passed as a param if needed.</p>
