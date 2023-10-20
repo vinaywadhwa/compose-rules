@@ -18,14 +18,16 @@ class ComposeModifierNaming : ComposeKtVisitor {
         if (modifiers.isEmpty()) return
 
         val count = modifiers.size
-
-        for (modifier in modifiers) {
-            val valid = modifier.name?.lowercase()?.endsWith("modifier") ?: false
-            when {
-                !valid && count == 1 -> emitter.report(modifier, ModifiersAreSupposedToBeCalledModifierWhenAlone)
-                !valid -> emitter.report(modifier, ModifiersAreSupposedToEndInModifierWhenMultiple)
-                else -> {
-                    // no-op
+        if (count == 1) {
+            if (modifiers.first().name?.equals("modifier") != true) {
+                emitter.report(modifiers.first(), ModifiersAreSupposedToBeCalledModifierWhenAlone)
+                return
+            }
+        } else {
+            for (modifier in modifiers) {
+                val valid = modifier.name?.lowercase()?.endsWith("modifier") ?: false
+                if (!valid) {
+                    emitter.report(modifier, ModifiersAreSupposedToEndInModifierWhenMultiple)
                 }
             }
         }

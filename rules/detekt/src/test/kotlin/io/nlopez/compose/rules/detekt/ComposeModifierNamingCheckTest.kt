@@ -52,4 +52,19 @@ class ComposeModifierNamingCheckTest {
         val errors = rule.lint(code)
         assertThat(errors).isEmpty()
     }
+
+    @Test
+    fun `errors when a Composable has a single modifier not named modifier but ends with modifier`() {
+        @Language("kotlin")
+        val code =
+            """
+                @Composable
+                fun Something1(myModifier: Modifier) {}
+            """.trimIndent()
+
+        val errors = rule.lint(code)
+        assertThat(errors).hasStartSourceLocation(2, 16)
+
+        assertThat(errors[0]).hasMessage(ComposeModifierNaming.ModifiersAreSupposedToBeCalledModifierWhenAlone)
+    }
 }

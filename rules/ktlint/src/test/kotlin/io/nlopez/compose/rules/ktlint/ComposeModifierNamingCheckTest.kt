@@ -55,4 +55,20 @@ class ComposeModifierNamingCheckTest {
 
         modifierRuleAssertThat(code).hasNoLintViolations()
     }
+
+    @Test
+    fun `errors when a Composable has a single modifier not named modifier but ends with modifier`() {
+        @Language("kotlin")
+        val code =
+            """
+                @Composable
+                fun Something1(myModifier: Modifier) {}
+            """.trimIndent()
+
+        modifierRuleAssertThat(code).hasLintViolationWithoutAutoCorrect(
+            line = 2,
+            col = 16,
+            detail = ComposeModifierNaming.ModifiersAreSupposedToBeCalledModifierWhenAlone,
+        )
+    }
 }
