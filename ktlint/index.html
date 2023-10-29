@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.7">
     
     
       
@@ -30,7 +30,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.35e1ed30.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.4b4a2bd9.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.356b1318.min.css">
@@ -580,11 +580,11 @@
 <p><strong>Warning</strong>: If using <a href="https://github.com/diffplug/spotless">Spotless</a>, there is <a href="https://github.com/diffplug/spotless/issues/1220">no current way of enabling a custom ruleset like ours</a>. You would need to use any of the alternatives listed here (like Kotlinter) to just run these rules.</p>
 </blockquote>
 <h2 id="using-with-ktlint-cli-or-the-ktlint-unofficial-intellij-plugin">Using with ktlint CLI or the ktlint (unofficial) IntelliJ plugin<a class="headerlink" href="#using-with-ktlint-cli-or-the-ktlint-unofficial-intellij-plugin" title="Permanent link">&para;</a></h2>
-<p>The <a href="https://github.com/mrmans0n/compose-rules/releases">releases</a> page contains an <a href="https://stackoverflow.com/questions/11947037/what-is-an-uber-jar">uber jar</a> for each version release that can be used for these purposes.</p>
+<p>The <a href="https://github.com/mrmans0n/compose-rules/releases">releases</a> page contains an <a href="https://stackoverflow.com/questions/11947037/what-is-an-uber-jar">uber jar</a> for each version release that can be used for these purposes. In the <a href="https://github.com/mrmans0n/compose-rules/releases/">releases</a> page you can identify them by the suffix <code>-all.jar</code>.</p>
 <p>To use with <a href="https://ktlint.github.io/#getting-started">ktlint CLI</a>:
 <div class="highlight"><pre><span></span><code>ktlint<span class="w"> </span>-R<span class="w"> </span>ktlint-compose-&lt;VERSION&gt;-all.jar
 </code></pre></div></p>
-<p>You can use this same jar in the <a href="https://plugins.jetbrains.com/plugin/15057-ktlint-unofficial-">ktlint (unofficial) IntelliJ plugin</a> if the rules are compiled against the same ktlint version used for that release. You can configure the custom ruleset in the preferences page of the plugin.</p>
+<p>You can use this same <a href="https://github.com/mrmans0n/compose-rules/releases/">uber jar from the releases page</a> with the <a href="https://plugins.jetbrains.com/plugin/15057-ktlint-unofficial-">ktlint (unofficial) IntelliJ plugin</a> if the rules are compiled against the same ktlint version used for that release. You can configure the custom ruleset in the preferences page of the plugin.</p>
 <h2 id="configuring-rules">Configuring rules<a class="headerlink" href="#configuring-rules" title="Permanent link">&para;</a></h2>
 <h3 id="providing-custom-content-emitters">Providing custom content emitters<a class="headerlink" href="#providing-custom-content-emitters" title="Permanent link">&para;</a></h3>
 <p>There are some rules (<code>compose:content-emitter-returning-values-check</code>, <code>compose:modifier-not-used-at-root</code> and <code>compose:multiple-emitters-check</code>) that use predefined list of known composables that emit content. But you can add your own too! In your <code>.editorconfig</code> file, you'll need to add a <code>content_emitters</code> property followed by a list of composable names separated by commas. You would typically want the composables that are part of your custom design system to be in this list.</p>
