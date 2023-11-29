@@ -1,9 +1,9 @@
 // Copyright 2023 Nacho Lopez
 // SPDX-License-Identifier: Apache-2.0
 plugins {
-    id 'org.jetbrains.kotlin.jvm'
+    alias libs.plugins.kotlin.jvm
 }
-apply plugin: "com.vanniktech.maven.publish"
+
 dependencies {
     api libs.kotlin.compiler
 }

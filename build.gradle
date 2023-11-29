@@ -1,28 +1,15 @@
-buildscript {
-    repositories {
-        google()
-        mavenCentral()
-    }
-
-    dependencies {
-        classpath libs.kotlin.gradlePlugin
-        classpath libs.gradleMavenPublishPlugin
-    }
-}
+// Copyright 2023 Nacho Lopez
+// SPDX-License-Identifier: Apache-2.0
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    alias(libs.plugins.spotless)
+    alias(libs.plugins.kotlin.jvm) apply false
+    alias(libs.plugins.mavenPublish) apply false
+    alias(libs.plugins.spotless) apply false
 }
 
 allprojects {
-    repositories {
-        google()
-        mavenCentral()
-    }
-}
-
-subprojects {
-    apply plugin: "com.diffplug.spotless"
+    pluginManager.apply(libs.plugins.spotless.get().pluginId)
     spotless {
         kotlin {
             target "**/*.kt"
@@ -37,29 +24,32 @@ subprojects {
         }
     }
 
-    tasks.withType(JavaCompile).configureEach {
-        javaCompiler = javaToolchains.compilerFor {
-            languageVersion = JavaLanguageVersion.of(11)
+    plugins.withType(JavaBasePlugin).configureEach {
+        java {
+            toolchain.languageVersion = JavaLanguageVersion.of(11)
         }
     }
-    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach { compile ->
-        kotlinOptions {
+
+    tasks.withType(KotlinCompile).configureEach {
+        compilerOptions {
             // Treat all Kotlin warnings as errors
             allWarningsAsErrors = true
-            // Set JVM target to 17
-            jvmTarget = JavaVersion.VERSION_11
-            // Allow use of @OptIn
-            freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
-            // Enable default methods in interfaces
-            freeCompilerArgs += "-Xjvm-default=all"
-            // Enable context receivers
-            freeCompilerArgs += "-Xcontext-receivers"
-            // Enable K2 compiler
-            freeCompilerArgs += "-language-version=2.0"
-            freeCompilerArgs += "-Xsuppress-version-warnings"
+            freeCompilerArgs.addAll(
+                    // Enable default methods in interfaces
+                    "-Xjvm-default=all",
+                    // Enable context receivers
+                    "-Xcontext-receivers",
+                    // Enable K2 compiler
+                    "-language-version=2.0",
+                    "-Xsuppress-version-warnings",
+                    )
         }
     }
+
     version = VERSION_NAME
+    if (project != rootProject) {
+        pluginManager.apply(libs.plugins.mavenPublish.get().pluginId)
+    }
 }
 
 tasks.register("printVersion") {
