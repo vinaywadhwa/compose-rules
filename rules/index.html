@@ -399,6 +399,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#do-not-use-mutablestate-as-a-parameter" class="md-nav__link">
+    <span class="md-ellipsis">
+      Do not use MutableState as a parameter
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#do-not-emit-content-and-return-a-result" class="md-nav__link">
     <span class="md-ellipsis">
       Do not emit content and return a result
@@ -722,6 +731,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#do-not-use-mutablestate-as-a-parameter" class="md-nav__link">
+    <span class="md-ellipsis">
+      Do not use MutableState as a parameter
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#do-not-emit-content-and-return-a-result" class="md-nav__link">
     <span class="md-ellipsis">
       Do not emit content and return a result
@@ -968,7 +986,8 @@
 <p>In practice, there are a few common things to look out for:</p>
 <ul>
 <li>Do not pass ViewModels (or objects from DI) down.</li>
-<li>Do not pass <code>State&lt;Foo&gt;</code> or <code>MutableState&lt;Bar&gt;</code> instances down.</li>
+<li>Do not pass <code>MutableState&lt;Bar&gt;</code> instances down.</li>
+<li>Do not pass inherently mutable types, that can't be observed types, down.</li>
 </ul>
 <p>Instead pass down the relevant data to the function, and optional lambdas for callbacks.</p>
 <p>More information: <a href="https://developer.android.com/jetpack/compose/state">State and Jetpack Compose</a></p>
@@ -1005,8 +1024,14 @@
 <p>This practice follows on from the 'Hoist all the things' item above, where we said that state flows down. It might be tempting to pass mutable state down to a function to mutate the value.</p>
 <p>This is an anti-pattern though as it breaks the pattern of state flowing down, and events firing up. The mutation of the value is an event which should be modelled within the function API (a lambda callback).</p>
 <p>There are a few reasons for this, but the main one is that it is very easy to use a mutable object which does not trigger recomposition. Without triggering recomposition, your composables will not automatically update to reflect the updated value.</p>
-<p>Passing <code>ArrayList&lt;T&gt;</code>, <code>MutableState&lt;T&gt;</code>, <code>ViewModel</code> are common examples of this (but not limited to those types).</p>
+<p>Passing <code>ArrayList&lt;T&gt;</code> or <code>ViewModel</code> are common examples of this (but not limited to those types).</p>
 <p>Related rule: <a href="https://github.com/mrmans0n/compose-rules/blob/main/rules/common/src/main/kotlin/io/nlopez/compose/rules/MutableParameters.kt">compose:mutable-params-check</a></p>
+<h3 id="do-not-use-mutablestate-as-a-parameter">Do not use MutableState as a parameter<a class="headerlink" href="#do-not-use-mutablestate-as-a-parameter" title="Permanent link">&para;</a></h3>
+<p>This practice also follows on from the 'Hoist all the things' item above. When using <code>MutableState&lt;T&gt;</code> in a @Composable function signature as a parameter, this is promoting joint ownership over a state between a component and its user.</p>
+<p>Instead, if possible, consider making the component stateless and concede the state change to the caller. If mutation of the parent’s owned property is required in the component, consider creating a ComponentState class with the domain specific meaningful field that is backed by <code>mutableStateOf(...)</code>.</p>
+<p>When a component accepts MutableState as a parameter, it gains the ability to change it. This results in the split ownership of the state, and the usage side that owns the state now has no control over how and when it will be changed from within the component’s implementation.</p>
+<p>More info: <a href="https://android.googlesource.com/platform/frameworks/support/+/androidx-main/compose/docs/compose-component-api-guidelines.md#mutablestate_t_as-a-parameter">Compose API guidelines</a></p>
+<p>Related rule: <a href="https://github.com/mrmans0n/compose-rules/blob/main/rules/common/src/main/kotlin/io/nlopez/compose/rules/MutableStateParameter.kt">compose:mutable-state-param-check</a></p>
 <h3 id="do-not-emit-content-and-return-a-result">Do not emit content and return a result<a class="headerlink" href="#do-not-emit-content-and-return-a-result" title="Permanent link">&para;</a></h3>
 <p>Composable functions should either emit layout content, or return a value, but not both.</p>
 <p>If a composable should offer additional control surfaces to its caller, those control surfaces or callbacks should be provided as parameters to the composable function by the caller.</p>

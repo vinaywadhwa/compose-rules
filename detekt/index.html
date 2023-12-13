@@ -450,6 +450,12 @@
 <div class="highlight"><pre><span></span><code><span class="nt">Compose</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">ComposableAnnotationNaming</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">active</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">ComposableNaming</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">active</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="c1"># You can optionally disable the checks in this rule for regex matches against the composable name (e.g. molecule presenters)</span>
+<span class="w">    </span><span class="c1"># allowedComposableFunctionNames: .*Presenter,.*MoleculePresenter</span>
+<span class="w">  </span><span class="nt">ComposableParamOrder</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">active</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <span class="w">  </span><span class="nt">CompositionLocalAllowlist</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">active</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <span class="w">    </span><span class="c1"># You can optionally define a list of CompositionLocals that are allowed here</span>
@@ -487,11 +493,7 @@
 <span class="w">    </span><span class="c1"># contentEmitters: MyComposable,MyOtherComposable</span>
 <span class="w">  </span><span class="nt">MutableParams</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">active</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">  </span><span class="nt">ComposableNaming</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">active</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">    </span><span class="c1"># You can optionally disable the checks in this rule for regex matches against the composable name (e.g. molecule presenters)</span>
-<span class="w">    </span><span class="c1"># allowedComposableFunctionNames: .*Presenter,.*MoleculePresenter</span>
-<span class="w">  </span><span class="nt">ComposableParamOrder</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">MutableStateParam</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">active</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <span class="w">  </span><span class="nt">PreviewAnnotationNaming</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">active</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
