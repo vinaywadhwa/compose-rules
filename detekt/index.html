@@ -452,54 +452,56 @@
 <span class="w">    </span><span class="nt">active</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <span class="w">  </span><span class="nt">ComposableNaming</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">active</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">    </span><span class="c1"># You can optionally disable the checks in this rule for regex matches against the composable name (e.g. molecule presenters)</span>
+<span class="w">    </span><span class="c1"># -- You can optionally disable the checks in this rule for regex matches against the composable name (e.g. molecule presenters)</span>
 <span class="w">    </span><span class="c1"># allowedComposableFunctionNames: .*Presenter,.*MoleculePresenter</span>
 <span class="w">  </span><span class="nt">ComposableParamOrder</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">active</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <span class="w">  </span><span class="nt">CompositionLocalAllowlist</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">active</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">    </span><span class="c1"># You can optionally define a list of CompositionLocals that are allowed here</span>
+<span class="w">    </span><span class="c1"># -- You can optionally define a list of CompositionLocals that are allowed here</span>
 <span class="w">    </span><span class="c1"># allowedCompositionLocals: LocalSomething,LocalSomethingElse</span>
 <span class="w">  </span><span class="nt">CompositionLocalNaming</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">active</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <span class="w">  </span><span class="nt">ContentEmitterReturningValues</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">active</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">    </span><span class="c1"># You can optionally add your own composables here</span>
+<span class="w">    </span><span class="c1"># -- You can optionally add your own composables here</span>
 <span class="w">    </span><span class="c1"># contentEmitters: MyComposable,MyOtherComposable</span>
 <span class="w">  </span><span class="nt">DefaultsVisibility</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">active</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <span class="w">  </span><span class="nt">ModifierClickableOrder</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">active</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="c1"># -- You can optionally add your own Modifier types</span>
+<span class="w">    </span><span class="c1"># customModifiers: BananaModifier,PotatoModifier</span>
 <span class="w">  </span><span class="nt">ModifierComposable</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">active</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">    </span><span class="c1"># You can optionally add your own Modifier types</span>
+<span class="w">    </span><span class="c1"># -- You can optionally add your own Modifier types</span>
 <span class="w">    </span><span class="c1"># customModifiers: BananaModifier,PotatoModifier</span>
 <span class="w">  </span><span class="nt">ModifierMissing</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">active</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">    </span><span class="c1"># You can optionally control the visibility of which composables to check for here</span>
-<span class="w">    </span><span class="c1"># Possible values are: `only_public`, `public_and_internal` and `all` (default is `only_public`)</span>
+<span class="w">    </span><span class="c1"># -- You can optionally control the visibility of which composables to check for here</span>
+<span class="w">    </span><span class="c1"># -- Possible values are: `only_public`, `public_and_internal` and `all` (default is `only_public`)</span>
 <span class="w">    </span><span class="c1"># checkModifiersForVisibility: only_public</span>
-<span class="w">    </span><span class="c1"># You can optionally add your own Modifier types</span>
+<span class="w">    </span><span class="c1"># -- You can optionally add your own Modifier types</span>
 <span class="w">    </span><span class="c1"># customModifiers: BananaModifier,PotatoModifier</span>
 <span class="w">  </span><span class="nt">ModifierNaming</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">active</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">    </span><span class="c1"># You can optionally add your own Modifier types</span>
+<span class="w">    </span><span class="c1"># -- You can optionally add your own Modifier types</span>
 <span class="w">    </span><span class="c1"># customModifiers: BananaModifier,PotatoModifier</span>
 <span class="w">  </span><span class="nt">ModifierNotUsedAtRoot</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">active</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">    </span><span class="c1"># You can optionally add your own composables here</span>
+<span class="w">    </span><span class="c1"># -- You can optionally add your own composables here</span>
 <span class="w">    </span><span class="c1"># contentEmitters: MyComposable,MyOtherComposable</span>
-<span class="w">    </span><span class="c1"># You can optionally add your own Modifier types</span>
+<span class="w">    </span><span class="c1"># -- You can optionally add your own Modifier types</span>
 <span class="w">    </span><span class="c1"># customModifiers: BananaModifier,PotatoModifier</span>
 <span class="w">  </span><span class="nt">ModifierReused</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">active</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">    </span><span class="c1"># You can optionally add your own Modifier types</span>
+<span class="w">    </span><span class="c1"># -- You can optionally add your own Modifier types</span>
 <span class="w">    </span><span class="c1"># customModifiers: BananaModifier,PotatoModifier</span>
 <span class="w">  </span><span class="nt">ModifierWithoutDefault</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">active</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <span class="w">  </span><span class="nt">MultipleEmitters</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">active</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">    </span><span class="c1"># You can optionally add your own composables here</span>
+<span class="w">    </span><span class="c1"># -- You can optionally add your own composables here</span>
 <span class="w">    </span><span class="c1"># contentEmitters: MyComposable,MyOtherComposable</span>
 <span class="w">  </span><span class="nt">MutableParams</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">active</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
@@ -517,11 +519,11 @@
 <span class="w">    </span><span class="nt">active</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <span class="w">  </span><span class="nt">ViewModelForwarding</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">active</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain"># You can optionally use this rule on things other than types ending in &quot;ViewModel&quot; or &quot;Presenter&quot; (which are the defaults). You can add your own via a regex here</span><span class="p p-Indicator">:</span>
-<span class="w">      </span><span class="c1"># allowedStateHolderNames: .*ViewModel,.*Presenter</span>
+<span class="w">    </span><span class="c1"># -- You can optionally use this rule on things other than types ending in &quot;ViewModel&quot; or &quot;Presenter&quot; (which are the defaults). You can add your own via a regex here:</span>
+<span class="w">    </span><span class="c1"># allowedStateHolderNames: .*ViewModel,.*Presenter</span>
 <span class="w">  </span><span class="nt">ViewModelInjection</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">active</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">    </span><span class="c1"># You can optionally add your own ViewModel factories here</span>
+<span class="w">    </span><span class="c1"># -- You can optionally add your own ViewModel factories here</span>
 <span class="w">    </span><span class="c1"># viewModelFactories: hiltViewModel,potatoViewModel</span>
 </code></pre></div>
 <h3 id="disabling-a-specific-rule">Disabling a specific rule<a class="headerlink" href="#disabling-a-specific-rule" title="Permanent link">&para;</a></h3>
