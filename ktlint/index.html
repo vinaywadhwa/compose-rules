@@ -390,6 +390,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#configure-custom-modifier-names" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configure custom Modifier names
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -576,6 +585,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#configure-custom-modifier-names" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configure custom Modifier names
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -670,6 +688,11 @@ compose_check_modifiers_for_visibility = only_public
 * <code>only_public</code>: (default) Will check for missing modifiers only for public composables.
 * <code>public_and_internal</code>: Will check for missing modifiers in both public and internal composables.
 * <code>all</code>: Will check for missing modifiers in all composables.</p>
+<h3 id="configure-custom-modifier-names">Configure custom Modifier names<a class="headerlink" href="#configure-custom-modifier-names" title="Permanent link">&para;</a></h3>
+<p>Most of the modifier-related rules will look for modifiers based their type: either Modifier or GlanceModifier type. Some libraries might add their own flavor of Modifier to the mix, and it might make sense to enforce the same rules we have for the other default modifiers. To support that, you can configure this in your <code>.editorconfig</code> file:</p>
+<div class="highlight"><pre><span></span><code>[*.{kt,kts}]
+compose_custom_modifiers = BananaModifier,PotatoModifier
+</code></pre></div>
 <h2 id="disabling-a-specific-rule">Disabling a specific rule<a class="headerlink" href="#disabling-a-specific-rule" title="Permanent link">&para;</a></h2>
 <p>To disable a rule you have to follow the <a href="https://github.com/pinterest/ktlint#how-do-i-suppress-an-errors-for-a-lineblockfile">instructions from the ktlint documentation</a>, and use the id of the rule you want to disable with the <code>compose</code> tag.</p>
 <p>For example, to disable the <code>naming-check</code> rule, the tag you'll need to disable is <code>compose:naming-check</code>.</p>
