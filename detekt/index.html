@@ -501,8 +501,10 @@
 <span class="w">    </span><span class="nt">active</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <span class="w">  </span><span class="nt">MultipleEmitters</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">active</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">    </span><span class="c1"># -- You can optionally add your own composables here</span>
+<span class="w">    </span><span class="c1"># -- You can optionally add your own composables here that will count as content emitters</span>
 <span class="w">    </span><span class="c1"># contentEmitters: MyComposable,MyOtherComposable</span>
+<span class="w">    </span><span class="c1"># -- You can add composables here that you don&#39;t want to count as content emitters (e.g. custom dialogs or modals)</span>
+<span class="w">    </span><span class="c1"># contentEmittersDenylist: MyNonEmitterComposable</span>
 <span class="w">  </span><span class="nt">MutableParams</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">active</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <span class="w">  </span><span class="nt">MutableStateParam</span><span class="p">:</span>

@@ -346,6 +346,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#providing-exceptions-to-content-emitters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Providing exceptions to content emitters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#providing-custom-viewmodel-factories" class="md-nav__link">
     <span class="md-ellipsis">
       Providing custom ViewModel factories
@@ -541,6 +550,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#providing-exceptions-to-content-emitters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Providing exceptions to content emitters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#providing-custom-viewmodel-factories" class="md-nav__link">
     <span class="md-ellipsis">
       Providing custom ViewModel factories
@@ -655,9 +673,14 @@
 <p>You can use this same <a href="https://github.com/mrmans0n/compose-rules/releases/">uber jar from the releases page</a> with the <a href="https://plugins.jetbrains.com/plugin/15057-ktlint-unofficial-">ktlint (unofficial) IntelliJ plugin</a> if the rules are compiled against the same ktlint version used for that release. You can configure the custom ruleset in the preferences page of the plugin.</p>
 <h2 id="configuring-rules">Configuring rules<a class="headerlink" href="#configuring-rules" title="Permanent link">&para;</a></h2>
 <h3 id="providing-custom-content-emitters">Providing custom content emitters<a class="headerlink" href="#providing-custom-content-emitters" title="Permanent link">&para;</a></h3>
-<p>There are some rules (<code>compose:content-emitter-returning-values-check</code>, <code>compose:modifier-not-used-at-root</code> and <code>compose:multiple-emitters-check</code>) that use predefined list of known composables that emit content. But you can add your own too! In your <code>.editorconfig</code> file, you'll need to add a <code>content_emitters</code> property followed by a list of composable names separated by commas. You would typically want the composables that are part of your custom design system to be in this list.</p>
+<p>There are some rules (<code>compose:content-emitter-returning-values-check</code>, <code>compose:modifier-not-used-at-root</code> and <code>compose:multiple-emitters-check</code>) that use predefined list of known composables that emit content. But you can add your own too! In your <code>.editorconfig</code> file, you'll need to add a <code>compose_content_emitters</code> property followed by a list of composable names separated by commas. You would typically want the composables that are part of your custom design system to be in this list.</p>
 <div class="highlight"><pre><span></span><code>[*.{kt,kts}]
 compose_content_emitters = MyComposable,MyOtherComposable
+</code></pre></div>
+<h3 id="providing-exceptions-to-content-emitters">Providing exceptions to content emitters<a class="headerlink" href="#providing-exceptions-to-content-emitters" title="Permanent link">&para;</a></h3>
+<p>Sometimes we'll want to not count a Composable towards the multiple content emitters (<code>compose:multiple-emitters-check</code>) rule. This is useful, for example, if the composable function actually emits content but that content is painted in a different window (like a dialog or a modal). For those cases, we can use a denylist <code>compose_content_emitters_denyylist</code> to add those composable names separated by commas.</p>
+<div class="highlight"><pre><span></span><code>[*.{kt,kts}]
+compose_content_emitters_denylist = MyModalComposable,MyDialogComposable
 </code></pre></div>
 <h3 id="providing-custom-viewmodel-factories">Providing custom ViewModel factories<a class="headerlink" href="#providing-custom-viewmodel-factories" title="Permanent link">&para;</a></h3>
 <p>The <code>vm-injection-check</code> rule will check against common ViewModel factories (eg <code>viewModel</code> from AAC, <code>weaverViewModel</code> from Weaver, <code>hiltViewModel</code> from Hilt + Compose, etc), but you can configure your <code>.editorconfig</code> file to add your own, as a list of comma-separated strings:</p>
