@@ -230,7 +230,7 @@ Related rule: [compose:naming-check](https://github.com/mrmans0n/compose-rules/b
 
 ### Naming Composable annotations properly
 
-Custom Composable annotations (tagged with [`@ComposableTargetMarker`](https://developer.android.com/reference/kotlin/androidx/compose/runtime/ComposableTargetMarker#description())) should have the `Composable` prefix (for example, `@GoogleMapComposable` or `@MosaicComposable`).
+Custom Composable annotations (tagged with [`@ComposableTargetMarker`](https://developer.android.com/reference/kotlin/androidx/compose/runtime/ComposableTargetMarker#description())) should have the `Composable` suffix (for example, `@GoogleMapComposable` or `@MosaicComposable`).
 
 Related rule: [compose:composable-annotation-naming-check](https://github.com/mrmans0n/compose-rules/blob/main/rules/common/src/main/kotlin/io/nlopez/compose/rules/ComposableAnnotationNaming.kt)
 
