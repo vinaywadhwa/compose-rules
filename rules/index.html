@@ -1019,18 +1019,21 @@
 <p>Related rule: TBD</p>
 <h3 id="avoid-using-unstable-collections">Avoid using unstable collections<a class="headerlink" href="#avoid-using-unstable-collections" title="Permanent link">&para;</a></h3>
 <p>Collections are defined as interfaces (e.g. <code>List&lt;T&gt;</code>, <code>Map&lt;T&gt;</code>, <code>Set&lt;T&gt;</code>) in Kotlin, which can't guarantee that they are actually immutable. For example, you could write:</p>
-<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">list</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mutableListOf</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><code><span class="c1">// ❌ The compiler won&#39;t be able to infer that the list is immutable</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">list</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mutableListOf</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="p">()</span>
 </code></pre></div>
 <p>The variable is constant, its declared type is not mutable but its implementation is still mutable. The Compose compiler cannot be sure of the immutability of this class as it just sees the declared type and as such declares it as unstable.</p>
 <p>To force the compiler to see a collection as truly 'immutable' you have a couple of options.</p>
 <p>You can use <a href="https://github.com/Kotlin/kotlinx.collections.immutable">Kotlinx Immutable Collections</a>:</p>
-<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">list</span><span class="p">:</span><span class="w"> </span><span class="n">ImmutableList</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">persistentListOf</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><code><span class="c1">// ✅ The compiler knows that this list is immutable</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">list</span><span class="p">:</span><span class="w"> </span><span class="n">ImmutableList</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">persistentListOf</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="p">()</span>
 </code></pre></div>
 <p>Alternatively, you can wrap your collection in an annotated stable class to mark it as immutable for the Compose compiler.</p>
-<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="nd">@Immutable</span>
-<span class="w">    </span><span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">StringList</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="nv">items</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="p">)</span>
-<span class="w">    </span><span class="c1">// ...</span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">list</span><span class="p">:</span><span class="w"> </span><span class="n">StringList</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">StringList</span><span class="p">(</span><span class="n">yourList</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="c1">// ✅ The compiler knows that this class is immutable</span>
+<span class="nd">@Immutable</span>
+<span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">StringList</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="nv">items</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="p">)</span>
+<span class="c1">// ...</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">list</span><span class="p">:</span><span class="w"> </span><span class="n">StringList</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">StringList</span><span class="p">(</span><span class="n">yourList</span><span class="p">)</span>
 </code></pre></div>
 <blockquote>
 <p><strong>Note</strong>: It is preferred to use Kotlinx Immutable Collections for this. As you can see, the wrapped case only includes the immutability promise with the annotation, but the underlying List is still mutable.</p>
@@ -1052,7 +1055,7 @@
 <p>Related rule: <a href="https://github.com/mrmans0n/compose-rules/blob/main/rules/common/src/main/kotlin/io/nlopez/compose/rules/MutableStateParameter.kt">compose:mutable-state-param-check</a></p>
 <h3 id="be-mindful-of-the-arguments-you-use-inside-of-a-restarting-effect">Be mindful of the arguments you use inside of a restarting effect<a class="headerlink" href="#be-mindful-of-the-arguments-you-use-inside-of-a-restarting-effect" title="Permanent link">&para;</a></h3>
 <p>In Compose, effects like <code>LaunchedEffect</code>, <code>produceState</code>, or <code>DisposableEffect</code> can take multiple keys as arguments to control when the effect restarts. The typical form for these APIs is:</p>
-<p><div class="highlight"><pre><span></span><code><span class="w">    </span><span class="n">EffectName</span><span class="p">(</span><span class="n">key1</span><span class="p">,</span><span class="w"> </span><span class="n">key2</span><span class="p">,</span><span class="w"> </span><span class="n">key3</span><span class="p">,</span><span class="w"> </span><span class="p">...)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="p">}</span>
+<p><div class="highlight"><pre><span></span><code><span class="n">EffectName</span><span class="p">(</span><span class="n">key1</span><span class="p">,</span><span class="w"> </span><span class="n">key2</span><span class="p">,</span><span class="w"> </span><span class="n">key3</span><span class="p">,</span><span class="w"> </span><span class="p">...)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="p">}</span>
 </code></pre></div>
 Using the wrong keys to restart the effect can lead to:</p>
 <ul>
@@ -1070,31 +1073,31 @@ Using the wrong keys to restart the effect can lead to:</p>
 <li>If a variable never changes due to remember with no keys, no need to pass it as a key to the effect.</li>
 </ul>
 <p>Let's see some sample cases.</p>
-<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="c1">// ❌ onClick changes, but the effect won&#39;t be pointing to the right one!</span>
-<span class="w">    </span><span class="nd">@Composable</span>
-<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">MyComposable</span><span class="p">(</span><span class="n">onClick</span><span class="p">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Unit</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">LaunchedEffect</span><span class="p">(</span><span class="kt">Unit</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="n">onClick</span><span class="p">()</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">        </span><span class="c1">// ...</span>
+<div class="highlight"><pre><span></span><code><span class="c1">// ❌ onClick changes, but the effect won&#39;t be pointing to the right one!</span>
+<span class="nd">@Composable</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">MyComposable</span><span class="p">(</span><span class="n">onClick</span><span class="p">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Unit</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">LaunchedEffect</span><span class="p">(</span><span class="kt">Unit</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">onClick</span><span class="p">()</span>
 <span class="w">    </span><span class="p">}</span>
-<span class="w">    </span><span class="c1">// ✅ onClick changes and the LaunchedEffect won&#39;t be rebuilt -- but will point at the correct onClick!</span>
-<span class="w">    </span><span class="nd">@Composable</span>
-<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">MyComposable</span><span class="p">(</span><span class="n">onClick</span><span class="p">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Unit</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">latestOnClick</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">rememberUpdatedState</span><span class="p">(</span><span class="n">onClick</span><span class="p">)</span>
-<span class="w">        </span><span class="n">LaunchedEffect</span><span class="p">(</span><span class="kt">Unit</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="n">latestOnClick</span><span class="p">()</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">        </span><span class="c1">// ...</span>
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="p">}</span>
+<span class="c1">// ✅ onClick changes and the LaunchedEffect won&#39;t be rebuilt -- but will point at the correct onClick!</span>
+<span class="nd">@Composable</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">MyComposable</span><span class="p">(</span><span class="n">onClick</span><span class="p">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Unit</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">latestOnClick</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">rememberUpdatedState</span><span class="p">(</span><span class="n">onClick</span><span class="p">)</span>
+<span class="w">    </span><span class="n">LaunchedEffect</span><span class="p">(</span><span class="kt">Unit</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">latestOnClick</span><span class="p">()</span>
 <span class="w">    </span><span class="p">}</span>
-<span class="w">    </span><span class="c1">// ✅ _If we don&#39;t care about rebuilding the effect_, we can also use the parameter as key</span>
-<span class="w">    </span><span class="nd">@Composable</span>
-<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">MyComposable</span><span class="p">(</span><span class="n">onClick</span><span class="p">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Unit</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="c1">// This effect will be rebuilt every time onClick changes, so it will always point to the latest one.</span>
-<span class="w">        </span><span class="n">LaunchedEffect</span><span class="p">(</span><span class="n">onClick</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="n">onClick</span><span class="p">()</span>
-<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="p">}</span>
+<span class="c1">// ✅ _If we don&#39;t care about rebuilding the effect_, we can also use the parameter as key</span>
+<span class="nd">@Composable</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">MyComposable</span><span class="p">(</span><span class="n">onClick</span><span class="p">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Unit</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// This effect will be rebuilt every time onClick changes, so it will always point to the latest one.</span>
+<span class="w">    </span><span class="n">LaunchedEffect</span><span class="p">(</span><span class="n">onClick</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">onClick</span><span class="p">()</span>
 <span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 </code></pre></div>
 <p>More info: <a href="https://developer.android.com/jetpack/compose/side-effects#restarting-effects">Restarting effects</a> and <a href="https://developer.android.com/jetpack/compose/side-effects#rememberupdatedstate">rememberUpdatedState</a></p>
 <p>Related rule: <a href="https://github.com/mrmans0n/compose-rules/blob/main/rules/common/src/main/kotlin/io/nlopez/compose/rules/LambdaParameterInRestartableEffect.kt">compose:lambda-param-in-effect</a></p>
@@ -1108,11 +1111,16 @@ Using the wrong keys to restart the effect can lead to:</p>
 </blockquote>
 <h3 id="do-not-emit-multiple-pieces-of-content">Do not emit multiple pieces of content<a class="headerlink" href="#do-not-emit-multiple-pieces-of-content" title="Permanent link">&para;</a></h3>
 <p>A composable function should emit either 0 or 1 pieces of layout, but no more. A composable function should be cohesive, and not rely on what function it is called from.</p>
-<p>You can see an example of what not to do below. <code>InnerContent()</code> emits a number of layout nodes and assumes that it will be called from a Column:</p>
-<div class="highlight"><pre><span></span><code><span class="n">Column</span><span class="w"> </span><span class="p">{</span>
+<p>You can see an example of what not to do below. <code>InnerContent()</code> emits a number of layout nodes and assumes that it will be called from a <code>Column</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// This will render:</span>
+<span class="c1">// &lt;text&gt;</span>
+<span class="c1">// &lt;image&gt;</span>
+<span class="c1">// &lt;button&gt;</span>
+<span class="n">Column</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="n">InnerContent</span><span class="p">()</span>
 <span class="p">}</span>
 
+<span class="c1">// ❌ Unclear UI, as we emit multiple pieces of content at the same time</span>
 <span class="nd">@Composable</span>
 <span class="kd">private</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">InnerContent</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="n">Text</span><span class="p">(...)</span>
@@ -1120,8 +1128,19 @@ Using the wrong keys to restart the effect can lead to:</p>
 <span class="w">    </span><span class="n">Button</span><span class="p">(...)</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>However InnerContent could just as easily be called from a Row which would break all assumptions. Instead, InnerContent should be cohesive and emit a single layout node itself:</p>
-<p><div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<p>However InnerContent could just as easily be called from a <code>Row</code> or a <code>Box</code> which would break all assumptions. Some other examples of interaction with <code>InnerContent</code> could be:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// ❌ This will render: &lt;text&gt;&lt;image&gt;&lt;button&gt;</span>
+<span class="n">Row</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">InnerContent</span><span class="p">()</span>
+<span class="p">}</span>
+<span class="c1">// ❌ This will render all elements on top of each other.</span>
+<span class="n">Box</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">InnerContent</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Instead, InnerContent should be cohesive and emit a single layout node itself:</p>
+<p><div class="highlight"><pre><span></span><code><span class="c1">// ✅</span>
+<span class="nd">@Composable</span>
 <span class="kd">private</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">InnerContent</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="n">Column</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="n">Text</span><span class="p">(...)</span>
@@ -1132,7 +1151,8 @@ Using the wrong keys to restart the effect can lead to:</p>
 </code></pre></div>
 Nesting of layouts has a drastically lower cost vs the view system, so developers should not try to minimize UI layers at the cost of correctness.</p>
 <p>There is a slight exception to this rule, which is when the function is defined as an extension function of an appropriate scope, like so:
-<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<div class="highlight"><pre><span></span><code><span class="c1">// ✅</span>
+<span class="nd">@Composable</span>
 <span class="kd">private</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="n">ColumnScope</span><span class="p">.</span><span class="nf">InnerContent</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="n">Text</span><span class="p">(...)</span>
 <span class="w">    </span><span class="n">Image</span><span class="p">(...)</span>
@@ -1174,7 +1194,8 @@ This effectively ties the function to be called from a Column, but is still not 
 <p>When designing our composables, we should always try to be explicit about the dependencies they take in. If you acquire a ViewModel or an instance from DI in the body of the composable, you are making this dependency implicit, which has the downsides of making it hard to test and harder to reuse.</p>
 <p>To solve this problem, you should inject these dependencies as default values in the composable function.</p>
 <p>Let's see it with an example.</p>
-<p><div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<p><div class="highlight"><pre><span></span><code><span class="c1">// ❌ The VM dependency is implicit here.</span>
+<span class="nd">@Composable</span>
 <span class="kd">private</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">MyComposable</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">viewModel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">viewModel</span><span class="o">&lt;</span><span class="n">MyViewModel</span><span class="o">&gt;</span><span class="p">()</span>
 <span class="w">    </span><span class="c1">// ...</span>
@@ -1182,7 +1203,8 @@ This effectively ties the function to be called from a Column, but is still not 
 </code></pre></div>
 In this composable, the dependencies are implicit. When testing it you would need to fake the internals of viewModel somehow to be able to acquire your intended ViewModel.</p>
 <p>But, if you change it to pass these instances via the composable function parameters, you could provide the instance you want directly in your tests without any extra effort. It would also have the upside of the function being explicit about its external dependencies in its signature.</p>
-<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<div class="highlight"><pre><span></span><code><span class="c1">// ✅ The VM dependency is explicit</span>
+<span class="nd">@Composable</span>
 <span class="kd">private</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">MyComposable</span><span class="p">(</span>
 <span class="w">    </span><span class="n">viewModel</span><span class="p">:</span><span class="w"> </span><span class="n">MyViewModel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">viewModel</span><span class="p">(),</span>
 <span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -1212,7 +1234,8 @@ Be sure to set Detekt's <a href="https://detekt.dev/docs/introduction/compose/#u
 <p>Related rule: <a href="https://github.com/mrmans0n/compose-rules/blob/main/rules/common/src/main/kotlin/io/nlopez/compose/rules/ModifierMissing.kt">compose:modifier-missing-check</a></p>
 <h3 id="modifier-order-matters">Modifier order matters<a class="headerlink" href="#modifier-order-matters" title="Permanent link">&para;</a></h3>
 <p>The order of modifier functions is very important. Each function makes changes to the Modifier returned by the previous function, the sequence affects the final result. Let's see an example of this:</p>
-<p><div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<p><div class="highlight"><pre><span></span><code><span class="c1">// ❌ The UI will be off, as the pressed state ripple will extend beyond the intended shape</span>
+<span class="nd">@Composable</span>
 <span class="kd">fun</span><span class="w"> </span><span class="nf">MyCard</span><span class="p">(</span><span class="n">modifier</span><span class="p">:</span><span class="w"> </span><span class="n">Modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="n">Column</span><span class="p">(</span>
 <span class="w">        </span><span class="n">modifier</span>
@@ -1229,7 +1252,8 @@ Be sure to set Detekt's <a href="https://detekt.dev/docs/introduction/compose/#u
 </code></pre></div>
 The entire area, including the clipped area and the clipped background, responds to clicks. This means that the ripple will fill it all, even the areas that we wanted to trim from the shape.</p>
 <p>We can address this by simply reordering the modifiers.</p>
-<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<div class="highlight"><pre><span></span><code><span class="c1">// ✅ The UI will be now correct, as the pressed state ripple will have the same shape as the element</span>
+<span class="nd">@Composable</span>
 <span class="kd">fun</span><span class="w"> </span><span class="nf">MyCard</span><span class="p">(</span><span class="n">modifier</span><span class="p">:</span><span class="w"> </span><span class="n">Modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="n">Column</span><span class="p">(</span>
 <span class="w">        </span><span class="n">modifier</span>
@@ -1254,7 +1278,8 @@ Since modifiers aim to modify the external behaviors and appearance of the compo
 <h3 id="dont-re-use-modifiers">Don't re-use modifiers<a class="headerlink" href="#dont-re-use-modifiers" title="Permanent link">&para;</a></h3>
 <p>Modifiers which are passed in are designed so that they should be used by a single layout node in the composable function. If the provided modifier is used by multiple composables at different levels, unwanted behaviour can happen.</p>
 <p>In the following example we've exposed a public modifier parameter, and then passed it to the root Column, but we've also passed it to each of the descendant calls, with some extra modifiers on top:</p>
-<p><div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<p><div class="highlight"><pre><span></span><code><span class="c1">// ❌ When changing `modifier` at the call site, it will the whole layout in unintended ways</span>
+<span class="nd">@Composable</span>
 <span class="kd">private</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">InnerContent</span><span class="p">(</span><span class="n">modifier</span><span class="p">:</span><span class="w"> </span><span class="n">Modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="n">Column</span><span class="p">(</span><span class="n">modifier</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="n">Text</span><span class="p">(</span><span class="n">modifier</span><span class="p">.</span><span class="na">clickable</span><span class="p">(),</span><span class="w"> </span><span class="p">...)</span>
@@ -1264,7 +1289,8 @@ Since modifiers aim to modify the external behaviors and appearance of the compo
 <span class="p">}</span>
 </code></pre></div>
 This is not recommended. Instead, the provided modifier should only be used on the Column. The descendant calls should use newly built modifiers, by using the empty Modifier object:</p>
-<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<div class="highlight"><pre><span></span><code><span class="c1">// ✅ When changing `modifier` at the call site, it will only affect the external container of the UI</span>
+<span class="nd">@Composable</span>
 <span class="kd">private</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">InnerContent</span><span class="p">(</span><span class="n">modifier</span><span class="p">:</span><span class="w"> </span><span class="n">Modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="n">Column</span><span class="p">(</span><span class="n">modifier</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="n">Text</span><span class="p">(</span><span class="n">Modifier</span><span class="p">.</span><span class="na">clickable</span><span class="p">(),</span><span class="w"> </span><span class="p">...)</span>
