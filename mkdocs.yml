@@ -15,7 +15,7 @@ nav:
     - 'Overview': index.md
     - 'Using with Ktlint': ktlint.md
     - 'Using with Detekt': detekt.md
-    - 'Ruleset': rules.md
+    - 'Rules': rules.md
 
 # Configuration
 theme:
