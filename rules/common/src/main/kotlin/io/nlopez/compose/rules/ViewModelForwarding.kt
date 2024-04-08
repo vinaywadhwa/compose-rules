@@ -7,12 +7,16 @@ import io.nlopez.rules.core.ComposeKtVisitor
 import io.nlopez.rules.core.Emitter
 import io.nlopez.rules.core.util.definedInInterface
 import io.nlopez.rules.core.util.findChildrenByClass
+import io.nlopez.rules.core.util.findDirectChildrenByClass
 import io.nlopez.rules.core.util.isActual
 import io.nlopez.rules.core.util.isOverride
 import io.nlopez.rules.core.util.isRestartableEffect
 import org.jetbrains.kotlin.psi.KtCallExpression
+import org.jetbrains.kotlin.psi.KtDotQualifiedExpression
 import org.jetbrains.kotlin.psi.KtFunction
+import org.jetbrains.kotlin.psi.KtNameReferenceExpression
 import org.jetbrains.kotlin.psi.KtReferenceExpression
+import org.jetbrains.kotlin.psi.KtThisExpression
 
 class ViewModelForwarding : ComposeKtVisitor {
 
@@ -48,6 +52,7 @@ class ViewModelForwarding : ComposeKtVisitor {
                     postfix = ")",
                 ),
             )
+
             else -> null
         }
 
@@ -58,31 +63,96 @@ class ViewModelForwarding : ComposeKtVisitor {
             .mapNotNull { it.name }
             .toSet()
 
-        // We want now to see if these parameter names are used in any other calls to functions that start with
-        // a capital letter (so, most likely, composables).
-        bodyBlock.findChildrenByClass<KtCallExpression>()
-            .filter { callExpression -> callExpression.calleeExpression?.text?.first()?.isUpperCase() ?: false }
-            // Avoid LaunchedEffect/DisposableEffect/etc that can use the VM as a key
-            .filterNot { callExpression -> callExpression.isRestartableEffect }
-            // Avoid explicitly allowlisted Composable names
-            .filterNot { callExpression ->
-                allowedForwardingRegex?.let { callExpression.calleeExpression?.text?.matches(it) } == true
-            }
-            .flatMap { callExpression ->
-                // Get VALUE_ARGUMENT that has a REFERENCE_EXPRESSION. This would map to `viewModel` in this example:
-                // MyComposable(viewModel, ...)
-                callExpression.valueArguments
-                    .mapNotNull { valueArgument -> valueArgument.getArgumentExpression() as? KtReferenceExpression }
-                    .filter { reference -> reference.text in viewModelParameterNames }
-                    .map { callExpression }
-            }
-            .forEach { callExpression ->
-                emitter.report(callExpression, AvoidViewModelForwarding, false)
-            }
+        val checkedCallExpressions = mutableSetOf<KtCallExpression>()
+        fun checkCallExpressions(
+            callExpressions: Sequence<KtCallExpression>,
+            scopedParameter: String? = null,
+            usesItObjectRef: Boolean = false,
+        ) {
+            // Filter call expressions that are scope functions
+            callExpressions
+                .filter { callExpression -> callExpression.isScopeFunction }
+                .forEach { callExpression ->
+                    // For each scope function, get the lambda arguments
+                    callExpression.lambdaArguments
+                        .mapNotNull { it.getLambdaExpression()?.bodyExpression }
+                        .forEach { lambdaBodyExpression ->
+                            // For each lambda body expression, get the call expressions
+                            // ensures that only the immediate children of the bodyExpression that are instances of
+                            // KtCallExpression are checked, effectively limiting the scope to the first level of nesting.
+                            lambdaBodyExpression.findDirectChildrenByClass<KtCallExpression>()
+                                .filterNot { it in checkedCallExpressions }
+                                .also { expressions ->
+                                    checkCallExpressions(
+                                        scopedParameter = callExpression.getScopedParameterValue(),
+                                        usesItObjectRef = callExpression.hasItObjectReference,
+                                        callExpressions = expressions.asSequence(),
+                                    )
+                                }
+                        }
+                }
+
+            callExpressions
+                .filter { callExpression -> callExpression.calleeExpression?.text?.first()?.isUpperCase() ?: false }
+                // Avoid LaunchedEffect/DisposableEffect/etc that can use the VM as a key
+                .filterNot { callExpression -> callExpression.isRestartableEffect }
+                // Avoid explicitly allowlisted Composable names
+                .filterNot { callExpression ->
+                    allowedForwardingRegex?.let { callExpression.calleeExpression?.text?.matches(it) } == true
+                }
+                .flatMap { callExpression ->
+                    checkedCallExpressions.add(callExpression)
+                    // Get VALUE_ARGUMENT that has a REFERENCE_EXPRESSION. This would map to `viewModel` in this example:
+                    // MyComposable(viewModel, ...)
+                    callExpression.valueArguments
+                        .mapNotNull { valueArgument ->
+                            when (val argumentExpression = valueArgument.getArgumentExpression()) {
+                                is KtReferenceExpression, is KtThisExpression -> argumentExpression
+                                else -> null
+                            }
+                        }
+                        .filter { argumentExpression ->
+                            val isItRefAndScopedInVMParams = usesItObjectRef &&
+                                argumentExpression.text == "it" && scopedParameter in viewModelParameterNames
+                            val isThisRefAndScopedInVMParams = !usesItObjectRef &&
+                                argumentExpression.text == "this" && scopedParameter in viewModelParameterNames
+
+                            argumentExpression.text in viewModelParameterNames || isItRefAndScopedInVMParams ||
+                                isThisRefAndScopedInVMParams
+                        }
+                        .map { callExpression }
+                }
+                .forEach { callExpression ->
+                    emitter.report(callExpression, AvoidViewModelForwarding, false)
+                }
+        }
+        val callExpressions = bodyBlock
+            .findChildrenByClass<KtCallExpression>()
+            .filterNot { it in checkedCallExpressions }
+        checkCallExpressions(callExpressions = callExpressions)
+    }
+
+    private val KtCallExpression.isScopeFunction: Boolean
+        get() = (calleeExpression as? KtNameReferenceExpression)?.getReferencedName() in scopeFunctions
+
+    private val KtCallExpression.isWithScope: Boolean
+        get() = (calleeExpression as? KtNameReferenceExpression)?.getReferencedName() == "with"
+
+    private val KtCallExpression.hasItObjectReference: Boolean
+        get() = (calleeExpression as? KtNameReferenceExpression)?.getReferencedName() in itObjectScopeFunctions
+
+    private fun KtCallExpression.getScopedParameterValue(): String? {
+        return if (isWithScope) {
+            valueArguments.firstOrNull()?.getArgumentExpression()?.text
+        } else {
+            (parent as? KtDotQualifiedExpression)?.receiverExpression?.text
+        }
     }
 
     companion object {
         private val defaultStateHolderNames = listOf(".*ViewModel", ".*Presenter")
+        private val scopeFunctions = setOf("with", "apply", "run", "also", "let")
+        private val itObjectScopeFunctions = setOf("let", "also")
         val AvoidViewModelForwarding = """
             Forwarding a ViewModel/Presenter through multiple @Composable functions should be avoided. Consider using state hoisting.
 
