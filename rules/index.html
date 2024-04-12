@@ -637,6 +637,30 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#opt-in-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      Opt-in rules
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Opt-in rules">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dont-use-material-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Don't use Material 2
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -968,6 +992,30 @@
   <a href="#componentdefaults-object-should-match-the-composable-visibility" class="md-nav__link">
     <span class="md-ellipsis">
       ComponentDefaults object should match the composable visibility
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#opt-in-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      Opt-in rules
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Opt-in rules">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dont-use-material-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Don't use Material 2
     </span>
   </a>
   
@@ -1319,6 +1367,15 @@ This is not recommended. Instead, the provided modifier should only be used on t
 <p>If your composable has an associated <code>Defaults</code> object to contain its default values, this object should have the same visibility as the composable itself. This will allow consumers to be able to interact or build upon the original intended defaults, as opposed to having to maintain their own set of defaults by copy-pasting.</p>
 <p>More info: <a href="https://github.com/androidx/androidx/blob/androidx-main/compose/docs/compose-component-api-guidelines.md#default-expressions">Compose Component API Guidelines</a></p>
 <p>Related rule: <a href="https://github.com/mrmans0n/compose-rules/blob/main/rules/common/src/main/kotlin/io/nlopez/compose/rules/DefaultsVisibility.kt">compose:defaults-visibility</a></p>
+<h2 id="opt-in-rules">Opt-in rules<a class="headerlink" href="#opt-in-rules" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p><strong>Note</strong>: These rules are disabled by default, you'll need to explicitly enable them individually in detekt/ktlint if you.</p>
+</blockquote>
+<h3 id="dont-use-material-2">Don't use Material 2<a class="headerlink" href="#dont-use-material-2" title="Permanent link">&para;</a></h3>
+<p>Material Design 3 is the next evolution of Material Design. It includes updated theming, components, and Material You personalization features like dynamic color. It supersedes Material 2, and using Material 3 usage is recommended instead of Material 2.</p>
+<p>Enabling: <a href="https://mrmans0n.github.io/compose-rules/ktlint/#enabling-the-material-2-detector">ktlint</a>, <a href="https://mrmans0n.github.io/compose-rules/detekt/#enabling-rules">detekt</a></p>
+<p>More info: <a href="https://developer.android.com/develop/ui/compose/designsystems/material2-material3">Migration to Material 3</a></p>
+<p>Related rule: <a href="https://github.com/mrmans0n/compose-rules/blob/main/rules/common/src/main/kotlin/io/nlopez/compose/rules/Material2.kt">compose:material-two</a></p>
 
 
 

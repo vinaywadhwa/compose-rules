@@ -426,6 +426,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#enabling-the-material-2-detector" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enabling the Material 2 detector
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -648,6 +657,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#enabling-the-material-2-detector" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enabling the Material 2 detector
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -761,6 +779,17 @@ compose_custom_modifiers = BananaModifier,PotatoModifier
 <p>The <code>param-order-check</code> rule will do its best to identify trailing lambdas. However, in cases where a typedef / functional interface is being used, we might want to have this rule to treat them as if they were lambdas: not reporting them if they are the last in a method signature and they don't have a default value. To give ktlint some hints, you can configure this in your <code>.editorconfig</code> file:</p>
 <div class="highlight"><pre><span></span><code>[*.{kt,kts}]
 compose_treat_as_lambda = MyLambdaType,MyOtherLambdaType
+</code></pre></div>
+<h3 id="enabling-the-material-2-detector">Enabling the Material 2 detector<a class="headerlink" href="#enabling-the-material-2-detector" title="Permanent link">&para;</a></h3>
+<p>The <code>material-two</code> rule will flag any usage of a Material 2 API. This rule is disabled by default, so you'll need to explicitly enable it in your <code>.editorconfig</code> file:</p>
+<div class="highlight"><pre><span></span><code>[*.{kt,kts}]
+compose_disallow_material2 = true
+</code></pre></div>
+<p>You might also want to disallow Material 2, but allow a specific set / subset of APIs. The rule allows this too.</p>
+<p>For example, let's say you want to allow all filled icons (whose fully qualified names are androidx.compose.material.icons.filled.*) and the <code>Button</code> composable (androidx.compose.material.Button). This is how you'd allow those:</p>
+<div class="highlight"><pre><span></span><code>[*.{kt,kts}]
+compose_disallow_material2 = true
+compose_allowed_from_m2 = icons.filled,Button
 </code></pre></div>
 <h2 id="disabling-a-specific-rule">Disabling a specific rule<a class="headerlink" href="#disabling-a-specific-rule" title="Permanent link">&para;</a></h2>
 <p>To disable a rule you have to follow the <a href="https://github.com/pinterest/ktlint#how-do-i-suppress-an-errors-for-a-lineblockfile">instructions from the ktlint documentation</a>, and use the id of the rule you want to disable with the <code>compose</code> tag.</p>
