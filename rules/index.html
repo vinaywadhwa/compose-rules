@@ -374,6 +374,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#use-mutablestateof-type-specific-variants-when-possible" class="md-nav__link">
+    <span class="md-ellipsis">
+      Use mutableStateOf type-specific variants when possible
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -739,6 +748,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#use-mutablestateof-type-specific-variants-when-possible" class="md-nav__link">
+    <span class="md-ellipsis">
+      Use mutableStateOf type-specific variants when possible
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1088,6 +1106,10 @@
 </blockquote>
 <p>More info: <a href="https://medium.com/androiddevelopers/jetpack-compose-stability-explained-79c10db270c8">Jetpack Compose Stability Explained</a>, <a href="https://github.com/Kotlin/kotlinx.collections.immutable">Kotlinx Immutable Collections</a></p>
 <p>Related rule: <a href="https://github.com/mrmans0n/compose-rules/blob/main/rules/common/src/main/kotlin/io/nlopez/compose/rules/UnstableCollections.kt">compose:unstable-collections</a></p>
+<h3 id="use-mutablestateof-type-specific-variants-when-possible">Use mutableStateOf type-specific variants when possible<a class="headerlink" href="#use-mutablestateof-type-specific-variants-when-possible" title="Permanent link">&para;</a></h3>
+<p><code>mutableIntStateOf</code>, <code>mutableLongStateOf</code>, <code>mutableDoubleStateOf</code>, <code>mutableFloatStateOf</code> are essentially counterparts to <code>mutableStateOf</code>, but with the added advantage of circumventing autoboxing on JVM platforms. This distinction renders them more memory efficient, making them the preferable choice when dealing with primitive types such as double, float, int, and long.</p>
+<p>Functionally are the same, but they are preferred when dealing with these specific types.</p>
+<p>Related rule: <a href="https://github.com/mrmans0n/compose-rules/blob/main/rules/common/src/main/kotlin/io/nlopez/compose/rules/MutableStateAutoboxing.kt">compose:mutable-state-autoboxing</a></p>
 <h2 id="composables">Composables<a class="headerlink" href="#composables" title="Permanent link">&para;</a></h2>
 <h3 id="do-not-use-inherently-mutable-types-as-parameters">Do not use inherently mutable types as parameters<a class="headerlink" href="#do-not-use-inherently-mutable-types-as-parameters" title="Permanent link">&para;</a></h3>
 <p>This practice follows on from the 'Hoist all the things' item above, where we said that state flows down. It might be tempting to pass mutable state down to a function to mutate the value.</p>
