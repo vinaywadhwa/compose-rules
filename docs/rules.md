@@ -479,7 +479,7 @@ Related rule: [compose:defaults-visibility](https://github.com/mrmans0n/compose-
 
 ## Opt-in rules
 
-> **Note**: These rules are disabled by default, you'll need to explicitly enable them individually in detekt/ktlint if you.
+> **Note**: These rules are disabled by default, you'll need to explicitly enable them individually in detekt/ktlint.
 
 ### Don't use Material 2
 
