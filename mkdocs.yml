@@ -23,12 +23,12 @@ theme:
     language: 'en'
     palette:
         primary: 'light blue'
-        accent: 'indigo'
+        accent: 'deep orange'
     font:
         text: 'Roboto'
         code: 'JetBrains Mono'
     icon:
-        logo: material/twitter
+        logo: material/straighten
 
 # Extensions
 markdown_extensions:
