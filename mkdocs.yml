@@ -28,7 +28,7 @@ theme:
         text: 'Roboto'
         code: 'JetBrains Mono'
     icon:
-        logo: material/straighten
+        logo: material/rulefolder
 
 # Extensions
 markdown_extensions:
