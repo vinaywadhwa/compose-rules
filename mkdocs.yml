@@ -13,8 +13,8 @@ repo_url: 'https://github.com/mrmans0n/compose-rules'
 # Navigation
 nav:
     - 'Overview': index.md
-    - 'Using with Ktlint': ktlint.md
-    - 'Using with Detekt': detekt.md
+    - 'Using with ktlint': ktlint.md
+    - 'Using with detekt': detekt.md
     - 'Rules': rules.md
 
 # Configuration
