@@ -126,6 +126,7 @@ Let's see some sample cases.
 @Composable
 fun MyComposable(onClick: () -> Unit) {
     LaunchedEffect(Unit) {
+        delay(10.seconds)
         onClick()
     }
     // ...
@@ -135,6 +136,7 @@ fun MyComposable(onClick: () -> Unit) {
 fun MyComposable(onClick: () -> Unit) {
     val latestOnClick by rememberUpdatedState(onClick)
     LaunchedEffect(Unit) {
+        delay(10.seconds)
         latestOnClick()
     }
     // ...
@@ -144,6 +146,7 @@ fun MyComposable(onClick: () -> Unit) {
 fun MyComposable(onClick: () -> Unit) {
     // This effect will be rebuilt every time onClick changes, so it will always point to the latest one.
     LaunchedEffect(onClick) {
+        delay(10.seconds)
         onClick()
     }
 }
