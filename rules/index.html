@@ -1147,7 +1147,7 @@ Using the wrong keys to restart the effect can lead to:</p>
 <span class="nd">@Composable</span>
 <span class="kd">fun</span><span class="w"> </span><span class="nf">MyComposable</span><span class="p">(</span><span class="n">onClick</span><span class="p">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Unit</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="n">LaunchedEffect</span><span class="p">(</span><span class="kt">Unit</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">delay</span><span class="p">(</span><span class="m">10.</span><span class="n">seconds</span><span class="p">)</span>
+<span class="w">        </span><span class="n">delay</span><span class="p">(</span><span class="m">10.</span><span class="n">seconds</span><span class="p">)</span><span class="w"> </span><span class="c1">// something that takes time, a flow collection, etc</span>
 <span class="w">        </span><span class="n">onClick</span><span class="p">()</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">    </span><span class="c1">// ...</span>
@@ -1157,7 +1157,7 @@ Using the wrong keys to restart the effect can lead to:</p>
 <span class="kd">fun</span><span class="w"> </span><span class="nf">MyComposable</span><span class="p">(</span><span class="n">onClick</span><span class="p">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Unit</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">latestOnClick</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">rememberUpdatedState</span><span class="p">(</span><span class="n">onClick</span><span class="p">)</span>
 <span class="w">    </span><span class="n">LaunchedEffect</span><span class="p">(</span><span class="kt">Unit</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">delay</span><span class="p">(</span><span class="m">10.</span><span class="n">seconds</span><span class="p">)</span>
+<span class="w">        </span><span class="n">delay</span><span class="p">(</span><span class="m">10.</span><span class="n">seconds</span><span class="p">)</span><span class="w"> </span><span class="c1">// something that takes time, a flow collection, etc</span>
 <span class="w">        </span><span class="n">latestOnClick</span><span class="p">()</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">    </span><span class="c1">// ...</span>
@@ -1167,7 +1167,7 @@ Using the wrong keys to restart the effect can lead to:</p>
 <span class="kd">fun</span><span class="w"> </span><span class="nf">MyComposable</span><span class="p">(</span><span class="n">onClick</span><span class="p">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Unit</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="c1">// This effect will be rebuilt every time onClick changes, so it will always point to the latest one.</span>
 <span class="w">    </span><span class="n">LaunchedEffect</span><span class="p">(</span><span class="n">onClick</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">delay</span><span class="p">(</span><span class="m">10.</span><span class="n">seconds</span><span class="p">)</span>
+<span class="w">        </span><span class="n">delay</span><span class="p">(</span><span class="m">10.</span><span class="n">seconds</span><span class="p">)</span><span class="w"> </span><span class="c1">// something that takes time, a flow collection, etc</span>
 <span class="w">        </span><span class="n">onClick</span><span class="p">()</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
