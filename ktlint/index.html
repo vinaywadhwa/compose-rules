@@ -400,6 +400,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#allowlist-for-viewmodelstate-holder-names-that-arent-affected-by-the-viewmodelforwarding-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      Allowlist for ViewModel/state holder names that aren't affected by the ViewModelForwarding rule
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#configure-the-visibility-of-the-composables-where-to-check-for-missing-modifiers" class="md-nav__link">
     <span class="md-ellipsis">
       Configure the visibility of the composables where to check for missing modifiers
@@ -631,6 +640,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#allowlist-for-viewmodelstate-holder-names-that-arent-affected-by-the-viewmodelforwarding-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      Allowlist for ViewModel/state holder names that aren't affected by the ViewModelForwarding rule
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#configure-the-visibility-of-the-composables-where-to-check-for-missing-modifiers" class="md-nav__link">
     <span class="md-ellipsis">
       Configure the visibility of the composables where to check for missing modifiers
@@ -757,9 +775,14 @@ compose_allowed_composable_function_names = .*Presenter,.*SomethingElse
 compose_allowed_state_holder_names = .*ViewModel,.*Presenter,.*Component,.*SomethingElse
 </code></pre></div>
 <h3 id="allowlist-for-composable-names-that-arent-affected-by-the-viewmodelforwarding-rule">Allowlist for composable names that aren't affected by the ViewModelForwarding rule<a class="headerlink" href="#allowlist-for-composable-names-that-arent-affected-by-the-viewmodelforwarding-rule" title="Permanent link">&para;</a></h3>
-<p>The <code>vm-forwarding-check</code> will catch VMs/state holder classes that are relayed to other composables. However, in some situations this can be a valid use-case. The rule can be configured so that all the names that matches a list of regexes are exempt to this rule. You can configure this in your <code>.editorconfig</code> file:</p>
+<p>The <code>vm-forwarding-check</code> will catch VMs/state holder classes that are relayed to other composables. However, in some situations this can be a valid use-case. The rule can be configured so that all the names of composables that match a list of regexes are exempt to this rule. You can configure this in your <code>.editorconfig</code> file:</p>
 <div class="highlight"><pre><span></span><code>[*.{kt,kts}]
 compose_allowed_forwarding = .*Content,.*SomethingElse
+</code></pre></div>
+<h3 id="allowlist-for-viewmodelstate-holder-names-that-arent-affected-by-the-viewmodelforwarding-rule">Allowlist for ViewModel/state holder names that aren't affected by the ViewModelForwarding rule<a class="headerlink" href="#allowlist-for-viewmodelstate-holder-names-that-arent-affected-by-the-viewmodelforwarding-rule" title="Permanent link">&para;</a></h3>
+<p>The <code>vm-forwarding-check</code> will catch VMs/state holder classes that are relayed to other composables. However, in some situations this can be a valid use-case. The rule can be configured so that all the names of ViewModels that match a list of regexes are exempt to this rule. You can configure this in your <code>.editorconfig</code> file:</p>
+<div class="highlight"><pre><span></span><code>[*.{kt,kts}]
+compose_allowed_forwarding_of_types = .*MyViewModel,PotatoViewModel
 </code></pre></div>
 <h3 id="configure-the-visibility-of-the-composables-where-to-check-for-missing-modifiers">Configure the visibility of the composables where to check for missing modifiers<a class="headerlink" href="#configure-the-visibility-of-the-composables-where-to-check-for-missing-modifiers" title="Permanent link">&para;</a></h3>
 <p>The <code>modifier-missing-check</code> rule will, by default, only look for missing modifiers for public composables. If you want to lower the visibility threshold to check also internal compoosables, or all composables, you can configure it in your <code>.editorconfig</code> file:</p>
