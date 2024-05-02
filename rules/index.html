@@ -444,6 +444,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#slots-for-main-content-should-be-the-trailing-lambda" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slots for main content should be the trailing lambda
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#naming-compositionlocals-properly" class="md-nav__link">
     <span class="md-ellipsis">
       Naming CompositionLocals properly
@@ -812,6 +821,15 @@
   <a href="#do-not-emit-multiple-pieces-of-content" class="md-nav__link">
     <span class="md-ellipsis">
       Do not emit multiple pieces of content
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slots-for-main-content-should-be-the-trailing-lambda" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slots for main content should be the trailing lambda
     </span>
   </a>
   
@@ -1237,6 +1255,26 @@ This effectively ties the function to be called from a Column, but is still not 
 <blockquote>
 <p><strong>Note</strong>: To add your custom composables so they are used in this rule (things like your design system composables), you can add <code>composeEmitters</code> to this rule config in Detekt, or <code>compose_emitters</code> to your .editorconfig in ktlint.</p>
 </blockquote>
+<h3 id="slots-for-main-content-should-be-the-trailing-lambda">Slots for main content should be the trailing lambda<a class="headerlink" href="#slots-for-main-content-should-be-the-trailing-lambda" title="Permanent link">&para;</a></h3>
+<p>The slots used to display the main content for a composable, which are typically in the form of <code>content: @Composable () -&gt; Unit</code> (or their nullable counterpart) should always be placed as the last parameter of a composable function, so they can be written as the trailing lambda. This makes following the flow of the main pieces of UI / content more natural and easy to reason about.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// ❌</span>
+<span class="nd">@Composable</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">Avatar</span><span class="p">(</span><span class="n">content</span><span class="p">:</span><span class="w"> </span><span class="nd">@Composable</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Unit</span><span class="p">,</span><span class="w"> </span><span class="n">subtitle</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">,</span><span class="w"> </span><span class="n">modifier</span><span class="p">:</span><span class="w"> </span><span class="n">Modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span>
+
+<span class="c1">// ✅ The usage of the main content as a trailing lambda is more natural</span>
+<span class="nd">@Composable</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">Avatar</span><span class="p">(</span><span class="n">subtitle</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">,</span><span class="w"> </span><span class="n">modifier</span><span class="p">:</span><span class="w"> </span><span class="n">Modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span><span class="p">,</span><span class="w"> </span><span class="n">content</span><span class="p">:</span><span class="w"> </span><span class="nd">@Composable</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Unit</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span>
+
+<span class="nd">@Composable</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">Profile</span><span class="p">(</span><span class="n">user</span><span class="p">:</span><span class="w"> </span><span class="n">User</span><span class="p">,</span><span class="w"> </span><span class="n">modifier</span><span class="p">:</span><span class="w"> </span><span class="n">Modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">Column</span><span class="p">(</span><span class="n">modifier</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Avatar</span><span class="p">(</span><span class="n">subtitle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">user</span><span class="p">.</span><span class="na">name</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">AsyncImage</span><span class="p">(</span><span class="n">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">user</span><span class="p">.</span><span class="na">avatarUrl</span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Related rule: <a href="https://github.com/mrmans0n/compose-rules/blob/main/rules/common/src/main/kotlin/io/nlopez/compose/rules/ContentTrailingLambda.kt">compose:content-trailing-lambda</a></p>
 <h3 id="naming-compositionlocals-properly">Naming CompositionLocals properly<a class="headerlink" href="#naming-compositionlocals-properly" title="Permanent link">&para;</a></h3>
 <p><code>CompositionLocal</code>s should be named by using the adjective <code>Local</code> as prefix, followed by a descriptive noun that describes the value they hold. This makes it easier to know when a value comes from a <code>CompositionLocal</code>. Given that these are implicit dependencies, we should make them obvious.</p>
 <p>More information: <a href="https://android.googlesource.com/platform/frameworks/support/+/androidx-main/compose/docs/compose-api-guidelines.md#naming-compositionlocals">Naming CompositionLocals</a></p>
