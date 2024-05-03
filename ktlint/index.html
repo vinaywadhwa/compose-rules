@@ -838,11 +838,10 @@ compose_disallow_material2 = true
 compose_allowed_from_m2 = icons.filled,Button
 </code></pre></div>
 <h2 id="disabling-a-specific-rule">Disabling a specific rule<a class="headerlink" href="#disabling-a-specific-rule" title="Permanent link">&para;</a></h2>
-<p>To disable a rule you have to follow the <a href="https://github.com/pinterest/ktlint#how-do-i-suppress-an-errors-for-a-lineblockfile">instructions from the ktlint documentation</a>, and use the id of the rule you want to disable with the <code>compose</code> tag.</p>
-<p>For example, to disable the <code>naming-check</code> rule, the tag you'll need to disable is <code>compose:naming-check</code>.</p>
-<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="cm">/* ktlint-disable compose:naming-check */</span>
+<p>To disable a rule you have to follow the <a href="https://pinterest.github.io/ktlint/0.49.1/faq/#how-do-i-suppress-errors-for-a-lineblockfile">instructions from the ktlint documentation</a>, and use the id of the rule you want to disable with the <code>compose</code> tag.</p>
+<p>For example, to disable the <code>naming-check</code> rule, the tag you'll need to disable is <code>ktlint:compose:naming-check</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="nd">@Suppress</span><span class="p">(</span><span class="s">&quot;ktlint:compose:naming-check&quot;</span><span class="p">)</span>
 <span class="w">    </span><span class="p">...</span><span class="w"> </span><span class="n">your</span><span class="w"> </span><span class="n">code</span><span class="w"> </span><span class="n">here</span>
-<span class="w">    </span><span class="cm">/* ktlint-enable compose:naming-check */</span>
 </code></pre></div>
 
 
