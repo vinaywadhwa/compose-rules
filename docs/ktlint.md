@@ -173,12 +173,11 @@ compose_allowed_from_m2 = icons.filled,Button
 
 ## Disabling a specific rule
 
-To disable a rule you have to follow the [instructions from the ktlint documentation](https://github.com/pinterest/ktlint#how-do-i-suppress-an-errors-for-a-lineblockfile), and use the id of the rule you want to disable with the `compose` tag.
+To disable a rule you have to follow the [instructions from the ktlint documentation](https://pinterest.github.io/ktlint/0.49.1/faq/#how-do-i-suppress-errors-for-a-lineblockfile), and use the id of the rule you want to disable with the `compose` tag.
 
-For example, to disable the `naming-check` rule, the tag you'll need to disable is `compose:naming-check`.
+For example, to disable the `naming-check` rule, the tag you'll need to disable is `ktlint:compose:naming-check`.
 
 ```kotlin
-    /* ktlint-disable compose:naming-check */
+    @Suppress("ktlint:compose:naming-check")
     ... your code here
-    /* ktlint-enable compose:naming-check */
 ```
