@@ -1,6 +1,6 @@
-# Jetpack Compose Rules - Static analysis of @Composables for ktlint and detekt
-
 ![Compose Rules](art/logo.webp)
+
+# The Jetpack Compose Rules - Static analysis of @Composables for ktlint and detekt
 
 [![Build & test](https://github.com/mrmans0n/compose-rules/actions/workflows/build.yaml/badge.svg?branch=main)](https://github.com/mrmans0n/compose-rules/actions/workflows/build.yaml?query=branch%3Amain)
 [![Maven Central](https://img.shields.io/maven-central/v/io.nlopez.compose.rules/common)](https://central.sonatype.com/search?q=g%3Aio.nlopez.compose.rules)
