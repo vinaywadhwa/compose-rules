@@ -1,4 +1,6 @@
-# Jetpack Compose Rules - Static checks for Ktlint and Detekt
+# Jetpack Compose Rules - Static analysis of @Composables for ktlint and detekt
+
+![Compose Rules](art/logo.webp)
 
 [![Build & test](https://github.com/mrmans0n/compose-rules/actions/workflows/build.yaml/badge.svg?branch=main)](https://github.com/mrmans0n/compose-rules/actions/workflows/build.yaml?query=branch%3Amain)
 [![Maven Central](https://img.shields.io/maven-central/v/io.nlopez.compose.rules/common)](https://central.sonatype.com/search?q=g%3Aio.nlopez.compose.rules)
@@ -16,23 +18,19 @@ This is where our static checks come in. We want to detect as many potential iss
 
 Check out the project website for more information: https://mrmans0n.github.io/compose-rules
 
-## Static checks for Compose bundled in this repo
+## What custom rules for static analysis are bundled in this repo?
 
 You can find the comprehensive list of rules in [the rules documentation](https://mrmans0n.github.io/compose-rules/rules). It contains both the what and why for each rule, we encourage you to read it prior to adopting our rules.
 
-There are 2 ways you can add these static checks to your build - using Ktlint or using Detekt.
+There are 2 ways you can add these static checks to your build - using ktlint or using detekt.
 
-## Using with Ktlint
+## Using with ktlint
 
-You can refer to the [Using with Ktlint](https://mrmans0n.github.io/compose-rules/ktlint) documentation.
+You can refer to the [Using with ktlint](https://mrmans0n.github.io/compose-rules/ktlint) documentation.
 
-## Using with Detekt
+## Using with detekt
 
-You can refer to the [Using with Detekt](https://mrmans0n.github.io/compose-rules/detekt) documentation.
-
-## Using with Lint
-
-There is a project using these rules and running them via Android's Lint, that is maintained by Slack. [Check it out here!](https://github.com/slackhq/compose-lints/)
+You can refer to the [Using with detekt](https://mrmans0n.github.io/compose-rules/detekt) documentation.
 
 ## Contributing
 
