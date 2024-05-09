@@ -18,7 +18,7 @@ This is where our static checks come in. We want to detect as many potential iss
 
 Check out the project website for more information: https://mrmans0n.github.io/compose-rules
 
-## What custom rules for static analysis are bundled in this repo?
+## What custom rules are bundled in this repo?
 
 You can find the comprehensive list of rules in [the rules documentation](https://mrmans0n.github.io/compose-rules/rules). It contains both the what and why for each rule, we encourage you to read it prior to adopting our rules.
 
