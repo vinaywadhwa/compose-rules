@@ -20,9 +20,11 @@ develocity {
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 rootProject.name = "compose-rules"
-include(":core-common")
-include(":core-detekt")
-include(":core-ktlint")
-include(":rules:common")
-include(":rules:detekt")
-include(":rules:ktlint")
+include(
+    ":core-common",
+    ":core-detekt",
+    ":core-ktlint",
+    ":rules:common",
+    ":rules:detekt",
+    ":rules:ktlint",
+)
