@@ -31,6 +31,10 @@ allprojects {
         }
     }
 
+    tasks.withType<Test>().configureEach {
+        useJUnitPlatform()
+    }
+
     tasks.withType<KotlinCompile>().configureEach {
         compilerOptions {
             // Treat all Kotlin warnings as errors
