@@ -27,7 +27,7 @@ theme:
     font:
         text: 'Roboto'
         code: 'JetBrains Mono'
-    logo: logo.png
+    logo: assets/logo.png
 
 # Extensions
 markdown_extensions:
