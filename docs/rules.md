@@ -266,23 +266,23 @@ Modifiers occupy the first optional parameter slot to set a consistent expectati
 
 Additionally, if there is a `content` lambda, it should be used as a trailing lambda.
 
-```mermaid
-  flowchart TD
-    A[Required params] --> B[Modifier]
-    B --> C[Optional parameters]
-    C --> D[Optionally a trailing lambda, like a content slot]
-```
+1. Required parameters (no default values)
+2. Optional parameters (have default values)
+    1. `modifier: Modifier = Modifier`
+    2. The rest of optional params
+3. [Optionally] A trailing lambda. If there is a `content` slot, it should be it.
 
-An example of the above diagram could be this:
+An example of the above could be this:
 
 ```kotlin
 // ✅
 @Composable
 fun Avatar(
     imageUrl: String, // Required parameters go first
-    name: String,
+    contentDescription: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier, // Optional parameters, start with modifier
+    enabled: Boolean = true,
     loadingContent: @Composable (() -> Unit)? = null, // Other optional parameters
     errorContent: @Composable (() -> Unit)? = null,
     content: @Composable () -> Unit, // A trailing mandatory lambda _can_ be last. Recommended placement for `content` slots.
