@@ -1289,6 +1289,25 @@ This effectively ties the function to be called from a Column, but is still not 
 <h3 id="ordering-composable-parameters-properly">Ordering @Composable parameters properly<a class="headerlink" href="#ordering-composable-parameters-properly" title="Permanent link">&para;</a></h3>
 <p>When writing Kotlin, it's a good practice to write the parameters for your methods by putting the mandatory parameters first, followed by the optional ones (aka the ones with default values). By doing so, <a href="https://kotlinlang.org/docs/functions.html#default-arguments">we minimize the number times we will need to write the name for arguments explicitly</a>.</p>
 <p>Modifiers occupy the first optional parameter slot to set a consistent expectation for developers that they can always provide a modifier as the final positional parameter to an element call for any given element's common case.</p>
+<p>Additionally, if there is a <code>content</code> lambda, it should be used as a trailing lambda.</p>
+<div class="highlight"><pre><span></span><code>  flowchart TD
+    A[Required params] --&gt; B[Modifier]
+    B --&gt; C[Optional parameters]
+    C --&gt; D[Optionally a trailing lambda, like a content slot]
+</code></pre></div>
+<p>An example of the above diagram could be this:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// ✅</span>
+<span class="nd">@Composable</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">Avatar</span><span class="p">(</span>
+<span class="w">    </span><span class="n">imageUrl</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">,</span><span class="w"> </span><span class="c1">// Required parameters go first</span>
+<span class="w">    </span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">,</span>
+<span class="w">    </span><span class="n">onClick</span><span class="p">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Unit</span><span class="p">,</span>
+<span class="w">    </span><span class="n">modifier</span><span class="p">:</span><span class="w"> </span><span class="n">Modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span><span class="p">,</span><span class="w"> </span><span class="c1">// Optional parameters, start with modifier</span>
+<span class="w">    </span><span class="n">loadingContent</span><span class="p">:</span><span class="w"> </span><span class="nd">@Composable</span><span class="w"> </span><span class="p">(()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Unit</span><span class="p">)</span><span class="o">?</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"> </span><span class="c1">// Other optional parameters</span>
+<span class="w">    </span><span class="n">errorContent</span><span class="p">:</span><span class="w"> </span><span class="nd">@Composable</span><span class="w"> </span><span class="p">(()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Unit</span><span class="p">)</span><span class="o">?</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">    </span><span class="n">content</span><span class="p">:</span><span class="w"> </span><span class="nd">@Composable</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Unit</span><span class="p">,</span><span class="w"> </span><span class="c1">// A trailing mandatory lambda _can_ be last. Recommended placement for `content` slots.</span>
+<span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
 <p>More information: <a href="https://kotlinlang.org/docs/functions.html#default-arguments">Kotlin default arguments</a>, <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier">Modifier docs</a> and <a href="https://github.com/androidx/androidx/blob/androidx-main/compose/docs/compose-api-guidelines.md#why-8">Elements accept and respect a Modifier parameter</a>.</p>
 <p>Related rule: <a href="https://github.com/mrmans0n/compose-rules/blob/main/rules/common/src/main/kotlin/io/nlopez/compose/rules/ParameterOrder.kt">compose:param-order-check</a></p>
 <h3 id="naming-parameters-properly">Naming parameters properly<a class="headerlink" href="#naming-parameters-properly" title="Permanent link">&para;</a></h3>
