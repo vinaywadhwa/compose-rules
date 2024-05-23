@@ -489,6 +489,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#naming-parameters-properly" class="md-nav__link">
+    <span class="md-ellipsis">
+      Naming parameters properly
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#movable-content-should-be-remembered" class="md-nav__link">
     <span class="md-ellipsis">
       Movable content should be remembered
@@ -866,6 +875,15 @@
   <a href="#ordering-composable-parameters-properly" class="md-nav__link">
     <span class="md-ellipsis">
       Ordering @Composable parameters properly
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#naming-parameters-properly" class="md-nav__link">
+    <span class="md-ellipsis">
+      Naming parameters properly
     </span>
   </a>
   
@@ -1273,6 +1291,18 @@ This effectively ties the function to be called from a Column, but is still not 
 <p>Modifiers occupy the first optional parameter slot to set a consistent expectation for developers that they can always provide a modifier as the final positional parameter to an element call for any given element's common case.</p>
 <p>More information: <a href="https://kotlinlang.org/docs/functions.html#default-arguments">Kotlin default arguments</a>, <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier">Modifier docs</a> and <a href="https://github.com/androidx/androidx/blob/androidx-main/compose/docs/compose-api-guidelines.md#why-8">Elements accept and respect a Modifier parameter</a>.</p>
 <p>Related rule: <a href="https://github.com/mrmans0n/compose-rules/blob/main/rules/common/src/main/kotlin/io/nlopez/compose/rules/ParameterOrder.kt">compose:param-order-check</a></p>
+<h3 id="naming-parameters-properly">Naming parameters properly<a class="headerlink" href="#naming-parameters-properly" title="Permanent link">&para;</a></h3>
+<p>The parameters in composable functions that send events are typically named <code>on</code> + verb in the present tense, like in the very common examples in Compose foundation code: <code>onClick</code> or <code>onTextChange</code>.
+It a common mistake to use the past tense in some of these events, so for consistency’s sake, we'll want to adjust the tense of the verbs to present.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// ❌</span>
+<span class="nd">@Composable</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">Avatar</span><span class="p">(</span><span class="n">onShown</span><span class="p">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Unit</span><span class="p">,</span><span class="w"> </span><span class="n">onChanged</span><span class="p">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Unit</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span>
+
+<span class="c1">// ✅</span>
+<span class="nd">@Composable</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">Avatar</span><span class="p">(</span><span class="n">onShow</span><span class="p">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Unit</span><span class="p">,</span><span class="w"> </span><span class="n">onChange</span><span class="p">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Unit</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<p>Related rule: <a href="https://github.com/mrmans0n/compose-rules/blob/main/rules/common/src/main/kotlin/io/nlopez/compose/rules/ParameterNaming.kt">compose:parameter-naming</a></p>
 <h3 id="movable-content-should-be-remembered">Movable content should be remembered<a class="headerlink" href="#movable-content-should-be-remembered" title="Permanent link">&para;</a></h3>
 <p>The methods used to create movable composable content (<code>movableContentOf</code> and <code>movableContentWithReceiverOf</code>) need to be used inside a <code>remember</code> function.</p>
 <p>To work as intended, they need to persist through compositions - as if they get detached from the composition, they will be immediately recycled.</p>
