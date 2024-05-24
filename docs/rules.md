@@ -272,20 +272,27 @@ Additionally, if there is a `content` lambda, it should be used as a trailing la
     2. The rest of optional params
 3. [Optionally] A trailing lambda. If there is a `content` slot, it should be it.
 
+```mermaid
+  flowchart LR
+    A[Required parameters] --> B[Modifier, if any]
+    B --> C[Optional parameters]
+    C --> D[Optionally a trailing lambda, eg a content slot]
+```
+
 An example of the above could be this:
 
 ```kotlin
 // ✅
 @Composable
 fun Avatar(
-    imageUrl: String, // Required parameters go first
+    imageUrl: String,               // Required parameters go first
     contentDescription: String,
     onClick: () -> Unit,
-    modifier: Modifier = Modifier, // Optional parameters, start with modifier
-    enabled: Boolean = true,
-    loadingContent: @Composable (() -> Unit)? = null, // Other optional parameters
+    modifier: Modifier = Modifier,  // Optional parameters, start with modifier
+    enabled: Boolean = true,        // Other optional parameters
+    loadingContent: @Composable (() -> Unit)? = null,
     errorContent: @Composable (() -> Unit)? = null,
-    content: @Composable () -> Unit, // A trailing mandatory lambda _can_ be last. Recommended placement for `content` slots.
+    content: @Composable () -> Unit, // A trailing lambda _can_ be last. Recommended for `content` slots.
 ) { ... }
 ```
 
