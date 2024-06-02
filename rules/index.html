@@ -1374,7 +1374,7 @@ Be sure to set Detekt's <a href="https://detekt.dev/docs/introduction/compose/#u
 <h3 id="when-should-i-expose-modifier-parameters">When should I expose modifier parameters?<a class="headerlink" href="#when-should-i-expose-modifier-parameters" title="Permanent link">&para;</a></h3>
 <p>Modifiers are the beating heart of Compose UI. They encapsulate the idea of composition over inheritance, by allowing developers to attach logic and behavior to layouts.</p>
 <p>They are especially important for your public components, as they allow callers to customize the component to their wishes.</p>
-<p>More info: <a href="https://chris.banes.dev/posts/always-provide-a-modifier/">Always provide a Modifier parameter</a></p>
+<p>More info: <a href="https://chrisbanes.me/posts/always-provide-a-modifier/">Always provide a Modifier parameter</a></p>
 <p>Related rule: <a href="https://github.com/mrmans0n/compose-rules/blob/main/rules/common/src/main/kotlin/io/nlopez/compose/rules/ModifierMissing.kt">compose:modifier-missing-check</a></p>
 <h3 id="modifier-order-matters">Modifier order matters<a class="headerlink" href="#modifier-order-matters" title="Permanent link">&para;</a></h3>
 <p>The order of modifier functions is very important. Each function makes changes to the Modifier returned by the previous function, the sequence affects the final result. Let's see an example of this:</p>
