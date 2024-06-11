@@ -303,7 +303,7 @@ Related rule: [compose:param-order-check](https://github.com/mrmans0n/compose-ru
 ### Naming parameters properly
 
 The parameters in composable functions that send events are typically named `on` + verb in the present tense, like in the very common examples in Compose foundation code: `onClick` or `onTextChange`.
-It a common mistake to use the past tense in some of these events, so for consistency’s sake, we'll want to adjust the tense of the verbs to present.
+To try to enforce common standard, and for consistency’s sake, we'll want to adjust the tense of the verbs to present.
 
 ```kotlin
 // ❌
