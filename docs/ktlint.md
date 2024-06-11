@@ -26,7 +26,7 @@ dependencies {
 
 See [Spotless Ktlint Integration](https://github.com/diffplug/spotless/tree/main/plugin-gradle#ktlint).
 
-## Using with ktlint CLI or the ktlint (unofficial) IntelliJ plugin
+## Using with ktlint CLI or the ktlint IntelliJ plugin
 
 The [releases](https://github.com/mrmans0n/compose-rules/releases) page contains an [uber jar](https://stackoverflow.com/questions/11947037/what-is-an-uber-jar) for each version release that can be used for these purposes. In the [releases](https://github.com/mrmans0n/compose-rules/releases/) page you can identify them by the suffix `-all.jar`.
 
@@ -35,7 +35,7 @@ To use with [ktlint CLI](https://ktlint.github.io/#getting-started):
 ktlint -R ktlint-compose-<VERSION>-all.jar
 ```
 
-You can use this same [uber jar from the releases page](https://github.com/mrmans0n/compose-rules/releases/) with the [ktlint (unofficial) IntelliJ plugin](https://plugins.jetbrains.com/plugin/15057-ktlint-unofficial-) if the rules are compiled against the same ktlint version used for that release. You can configure the custom ruleset in the preferences page of the plugin.
+You can use this same [uber jar from the releases page](https://github.com/mrmans0n/compose-rules/releases/) with the [ktlint IntelliJ plugin](https://plugins.jetbrains.com/plugin/15057-ktlint) if the rules are compiled against the same ktlint version used for that release. You can configure the custom ruleset in the preferences page of the plugin.
 
 ## Configuring rules
 
@@ -178,6 +178,15 @@ The `unstable-collections` rule will flag any usage of any unstable collection (
 ```editorconfig
 [*.{kt,kts}]
 compose_disallow_unstable_collections = true
+```
+
+### Disable `standard:function-naming` rule for Composable
+
+The function name for a Composable starts with an uppercase. This causes the ktlint rule `standard:function-naming` to report a violation. This rule can be configured to ignore Composable functions in your `.editorconfig` file:
+
+```editorconfig
+[*.{kt,kts}]
+ktlint_function_naming_ignore_when_annotated_with = Composable
 ```
 
 ## Disabling a specific rule
