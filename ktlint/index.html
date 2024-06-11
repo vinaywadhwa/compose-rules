@@ -318,9 +318,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#using-with-ktlint-cli-or-the-ktlint-unofficial-intellij-plugin" class="md-nav__link">
+  <a href="#using-with-ktlint-cli-or-the-ktlint-intellij-plugin" class="md-nav__link">
     <span class="md-ellipsis">
-      Using with ktlint CLI or the ktlint (unofficial) IntelliJ plugin
+      Using with ktlint CLI or the ktlint IntelliJ plugin
     </span>
   </a>
   
@@ -457,6 +457,15 @@
   <a href="#enabling-the-unstable-collections-detector" class="md-nav__link">
     <span class="md-ellipsis">
       Enabling the unstable collections detector
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#disable-standardfunction-naming-rule-for-composable" class="md-nav__link">
+    <span class="md-ellipsis">
+      Disable standard:function-naming rule for Composable
     </span>
   </a>
   
@@ -576,9 +585,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#using-with-ktlint-cli-or-the-ktlint-unofficial-intellij-plugin" class="md-nav__link">
+  <a href="#using-with-ktlint-cli-or-the-ktlint-intellij-plugin" class="md-nav__link">
     <span class="md-ellipsis">
-      Using with ktlint CLI or the ktlint (unofficial) IntelliJ plugin
+      Using with ktlint CLI or the ktlint IntelliJ plugin
     </span>
   </a>
   
@@ -720,6 +729,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#disable-standardfunction-naming-rule-for-composable" class="md-nav__link">
+    <span class="md-ellipsis">
+      Disable standard:function-naming rule for Composable
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -773,12 +791,12 @@
 </code></pre></div>
 <h2 id="using-with-spotless">Using with spotless<a class="headerlink" href="#using-with-spotless" title="Permanent link">&para;</a></h2>
 <p>See <a href="https://github.com/diffplug/spotless/tree/main/plugin-gradle#ktlint">Spotless Ktlint Integration</a>.</p>
-<h2 id="using-with-ktlint-cli-or-the-ktlint-unofficial-intellij-plugin">Using with ktlint CLI or the ktlint (unofficial) IntelliJ plugin<a class="headerlink" href="#using-with-ktlint-cli-or-the-ktlint-unofficial-intellij-plugin" title="Permanent link">&para;</a></h2>
+<h2 id="using-with-ktlint-cli-or-the-ktlint-intellij-plugin">Using with ktlint CLI or the ktlint IntelliJ plugin<a class="headerlink" href="#using-with-ktlint-cli-or-the-ktlint-intellij-plugin" title="Permanent link">&para;</a></h2>
 <p>The <a href="https://github.com/mrmans0n/compose-rules/releases">releases</a> page contains an <a href="https://stackoverflow.com/questions/11947037/what-is-an-uber-jar">uber jar</a> for each version release that can be used for these purposes. In the <a href="https://github.com/mrmans0n/compose-rules/releases/">releases</a> page you can identify them by the suffix <code>-all.jar</code>.</p>
 <p>To use with <a href="https://ktlint.github.io/#getting-started">ktlint CLI</a>:
 <div class="highlight"><pre><span></span><code>ktlint<span class="w"> </span>-R<span class="w"> </span>ktlint-compose-&lt;VERSION&gt;-all.jar
 </code></pre></div></p>
-<p>You can use this same <a href="https://github.com/mrmans0n/compose-rules/releases/">uber jar from the releases page</a> with the <a href="https://plugins.jetbrains.com/plugin/15057-ktlint-unofficial-">ktlint (unofficial) IntelliJ plugin</a> if the rules are compiled against the same ktlint version used for that release. You can configure the custom ruleset in the preferences page of the plugin.</p>
+<p>You can use this same <a href="https://github.com/mrmans0n/compose-rules/releases/">uber jar from the releases page</a> with the <a href="https://plugins.jetbrains.com/plugin/15057-ktlint">ktlint IntelliJ plugin</a> if the rules are compiled against the same ktlint version used for that release. You can configure the custom ruleset in the preferences page of the plugin.</p>
 <h2 id="configuring-rules">Configuring rules<a class="headerlink" href="#configuring-rules" title="Permanent link">&para;</a></h2>
 <h3 id="providing-custom-content-emitters">Providing custom content emitters<a class="headerlink" href="#providing-custom-content-emitters" title="Permanent link">&para;</a></h3>
 <p>There are some rules (<code>compose:content-emitter-returning-values-check</code>, <code>compose:modifier-not-used-at-root</code> and <code>compose:multiple-emitters-check</code>) that use predefined list of known composables that emit content. But you can add your own too! In your <code>.editorconfig</code> file, you'll need to add a <code>compose_content_emitters</code> property followed by a list of composable names separated by commas. You would typically want the composables that are part of your custom design system to be in this list.</p>
@@ -859,6 +877,11 @@ compose_allowed_from_m2 = icons.filled,Button
 <p>The <code>unstable-collections</code> rule will flag any usage of any unstable collection (e.g. List/Set/Map). This rule is disabled by default, so you'll need to explicitly enable it in your <code>.editorconfig</code> file:</p>
 <div class="highlight"><pre><span></span><code>[*.{kt,kts}]
 compose_disallow_unstable_collections = true
+</code></pre></div>
+<h3 id="disable-standardfunction-naming-rule-for-composable">Disable <code>standard:function-naming</code> rule for Composable<a class="headerlink" href="#disable-standardfunction-naming-rule-for-composable" title="Permanent link">&para;</a></h3>
+<p>The function name for a Composable starts with an uppercase. This causes the ktlint rule <code>standard:function-naming</code> to report a violation. This rule can be configured to ignore Composable functions in your <code>.editorconfig</code> file:</p>
+<div class="highlight"><pre><span></span><code>[*.{kt,kts}]
+ktlint_function_naming_ignore_when_annotated_with = Composable
 </code></pre></div>
 <h2 id="disabling-a-specific-rule">Disabling a specific rule<a class="headerlink" href="#disabling-a-specific-rule" title="Permanent link">&para;</a></h2>
 <p>To disable a rule you have to follow the <a href="https://pinterest.github.io/ktlint/0.49.1/faq/#how-do-i-suppress-errors-for-a-lineblockfile">instructions from the ktlint documentation</a>, and use the id of the rule you want to disable with the <code>compose</code> tag.</p>
